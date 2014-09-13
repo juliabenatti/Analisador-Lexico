@@ -46,7 +46,7 @@ public class TabSimbolos {
 		listaToken.add(new Token(37,"DECLARE","declare"));
 		listaToken.add(new Token(38,"TO","to"));
 	}
-	public String pesquisaPalavra(String token){
+	public Token pesquisaPalavra(String token){
 		
 		if(!isInt(token.substring(0,1)))
 			token = "variavel";
@@ -62,7 +62,7 @@ public class TabSimbolos {
 		
 		for (Token ltoken : listaToken) 			// Pega token por token
 			if(ltoken.getLexema().equals(token))	// Verifica se o token existe
-				return ltoken.getToken(); 			// Se existe, retorna o token
+				return ltoken; 			// Se existe, retorna o token
 
 		return null; 			// Para qualquer outra coisa, retorna null
 	}
