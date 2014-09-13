@@ -7,10 +7,10 @@ public class TabSimbolos {
 	private ArrayList<Codigo> listaCodigo = new ArrayList<Codigo>();
 	
 	private TabSimbolos(){ // Iniciliza tokens
-		listaToken.add(new Token(1,"NUM_INT",""));
-		listaToken.add(new Token(2,"NUM_FLOAT",""));
-		listaToken.add(new Token(3,"LITERAL",""));
-		listaToken.add(new Token(4,"ID",""));
+		listaToken.add(new Token(1,"NUM_INT","inteiro"));
+		listaToken.add(new Token(2,"NUM_FLOAT","float"));
+		listaToken.add(new Token(3,"LITERAL","literal"));
+		listaToken.add(new Token(4,"ID","variavel"));
 		listaToken.add(new Token(5,"REL_OP","<"));
 		listaToken.add(new Token(6,"REL_OP",">"));
 		listaToken.add(new Token(7,"REL_OP","<="));
@@ -46,20 +46,24 @@ public class TabSimbolos {
 		listaToken.add(new Token(37,"DECLARE","declare"));
 		listaToken.add(new Token(38,"TO","to"));
 	}
-	public String pesquisaPalavra(String token){
-		for (Token ltoken : listaToken) 			// Pega token por token
-			if(ltoken.getLexema().equals(token))	// Verifica se o token existe
-				return ltoken.getToken(); 			// Se existe, retorna o token
+	public Token pesquisaPalavra(String token){
+		
+		if(!isInt(token.substring(0,1)))
+			token = "variavel";
 		
 		if(token.charAt(0) == '\"')
-			return "LITERAL";			// Retorna LITERAL se comecar com aspas
+			token = "literal";			// Retorna LITERAL se comecar com aspas
 		
 		if(isInt(token))
-			return "NUM_INT";			// Retorna NUM_INT primeiro
+			token = "inteiro";			// Retorna NUM_INT primeiro
 										// Retornar NUM_FLOAT primeiro vai dar errado
 		if(isFloat(token))
-			return "NUM_FLOAT";			// Retorna NUM_FLOAT se for float
+			token = "float";			// Retorna NUM_FLOAT se for float
 		
+		for (Token ltoken : listaToken) 			// Pega token por token
+			if(ltoken.getLexema().equals(token))	// Verifica se o token existe
+				return ltoken; 			// Se existe, retorna o token
+
 		return null; 			// Para qualquer outra coisa, retorna null
 	}
 	
