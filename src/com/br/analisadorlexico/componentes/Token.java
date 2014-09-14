@@ -1,21 +1,28 @@
+package com.br.analisadorlexico.componentes;
+
 public class Token {
 	private int id;
-	private String token;
-	private String lexema;
-
-	public Token(int id, String token,String lexema){
-		this.id = id;
-		this.token = token;
-		this.lexema = lexema;
-	}
-
+	private String valor;
+	private String nomeToken;
+	
 	public int getId() {
 		return id;
 	}
-	public String getToken() {
-		return token;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getLexema() {
-		return lexema;
+	public String getValor() {
+		return valor;
 	}
+	public void setValor(String valor) {
+		this.valor = valor;
+	}
+	public String getNomeToken() {
+		return nomeToken;
+	}
+	public void setNomeToken(String nomeToken) {
+		this.nomeToken = nomeToken;
+	}
+
+	
 }
