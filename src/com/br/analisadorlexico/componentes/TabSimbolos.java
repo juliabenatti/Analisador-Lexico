@@ -12,11 +12,11 @@ public class TabSimbolos {
 		listaToken.add(new Token(3,"LITERAL","literal"));
 		listaToken.add(new Token(4,"ID","variavel"));
 		listaToken.add(new Token(5,"REL_OP","<"));
-		listaToken.add(new Token(6,"REL_OP",">"));
-		listaToken.add(new Token(7,"REL_OP","<="));
-		listaToken.add(new Token(8,"REL_OP",">="));
-		listaToken.add(new Token(9,"REL_OP","="));
-		listaToken.add(new Token(10,"REL_OP","<>"));
+		listaToken.add(new Token(5,"REL_OP",">"));
+		listaToken.add(new Token(5,"REL_OP","<="));
+		listaToken.add(new Token(5,"REL_OP",">="));
+		listaToken.add(new Token(5,"REL_OP","="));
+		listaToken.add(new Token(5,"REL_OP","<>"));
 		listaToken.add(new Token(11,"ADDSUB_OP","-"));
 		listaToken.add(new Token(12,"ADDSUB_OP","+"));
 		listaToken.add(new Token(13,"MULTDIV_OP","*"));
