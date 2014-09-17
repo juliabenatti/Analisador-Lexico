@@ -48,7 +48,7 @@ public class TabSimbolos {
 	}
 	public Token pesquisaPalavra(String token){
 		
-		if(!isInt(token.substring(0,1)))
+		if(!isInt(token.substring(0,1) && token.charAt(0) <> '\"'))
 			token = "variavel";
 		
 		if(token.charAt(0) == '\"')
