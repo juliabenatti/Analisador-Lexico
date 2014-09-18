@@ -46,10 +46,12 @@ public class TabSimbolos {
 		listaToken.add(new Token(24,"DECLARE","declare"));
 		listaToken.add(new Token(25,"TO","to"));
 	}
+	
+	public TabSimbolos getInstance(){
+		return instancia;
+	}
+	
 	public Token pesquisaPalavra(String token){
-		
-		if(!isInt(token.substring(0,1) && token.charAt(0) <> '\"'))
-			token = "variavel";
 		
 		if(token.charAt(0) == '\"')
 			token = "literal";			// Retorna LITERAL se comecar com aspas
@@ -64,32 +66,29 @@ public class TabSimbolos {
 			if(ltoken.getLexema().equals(token))	// Verifica se o token existe
 				return ltoken; 			// Se existe, retorna o token
 
-		return null; 			// Para qualquer outra coisa, retorna null
-	}
-	
-	public TabSimbolos getInstance(){
-		return instancia;
-	}
-	
-	public void gravaCodigo(int linha, int coluna, String token, String lexema){
-		listaCodigo.add(new Codigo(linha, coluna, token, lexema));
+		return isID();			// Para qualquer outra coisa, retorna null
 	}
 	
     public static boolean isInt(String texto) { // Verifica se 'e INT
         try {
-            Integer.parseInt(texto);  
-            return true;  
-        } catch (NumberFormatException err) {  
-            return false;  
-        }  
+            Integer.parseInt(texto);
+            return true;
+        } catch (NumberFormatException err) {
+            return false;
+        }
     }
     
     public static boolean isFloat(String texto) { // Verifica se 'e FLOAT
-        try {  
-            Float.parseFloat(texto);  
-            return true;  
-        } catch (NumberFormatException err) {  
-            return false;  
-        }  
+        try {
+            Float.parseFloat(texto);
+            return true;
+        } catch (NumberFormatException err) {
+            return false;
+        }
+    }
+    
+    public Token isID(String valor){
+    	
+    	return null;
     }
 }
