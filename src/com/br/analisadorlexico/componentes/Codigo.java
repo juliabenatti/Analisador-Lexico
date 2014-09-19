@@ -19,7 +19,7 @@ public class Codigo {
 	public String getToken(){
 		return this.token;
 	}
-	public String getLexema(){ // teste 666 hu3 hu3 brbr
+	public String getLexema(){ // teste 666 hu3 hu3 brbr1
 		return this.lexema;
 	}
 }
