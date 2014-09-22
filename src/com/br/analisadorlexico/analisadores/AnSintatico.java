@@ -13,7 +13,10 @@ public class AnSintatico {
 		Token tk = new Token(1, "teste", "teste");
 		do {
 			tk = analisadorLexico.nextToken();
-			// System.out.println("Token: "+tk.getNomeToken()+" Lexema: "+tk.getValor());
-		} while (false);
+			if(tk == null){
+				
+			}
+
+		} while (true);
 	}
 }

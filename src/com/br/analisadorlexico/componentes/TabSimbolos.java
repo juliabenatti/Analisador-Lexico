@@ -1,3 +1,5 @@
+package com.br.analisadorlexico.componentes;
+
 import java.util.ArrayList;
 
 
@@ -47,7 +49,7 @@ public class TabSimbolos {
 		listaToken.add(new Token(25,"TO","to"));
 	}
 	
-	public TabSimbolos getInstance(){
+	public static TabSimbolos getInstance(){
 		return instancia;
 	}
 	
@@ -66,7 +68,7 @@ public class TabSimbolos {
 			if(ltoken.getLexema().equals(token))	// Verifica se o token existe
 				return ltoken; 			// Se existe, retorna o token
 
-		return isID();			// Para qualquer outra coisa, retorna null
+		return isID("");			// Para qualquer outra coisa, retorna null
 	}
 	
     public static boolean isInt(String texto) { // Verifica se 'e INT
