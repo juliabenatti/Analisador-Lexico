@@ -42,7 +42,7 @@ public class AnLexico {
 			case ')':
 				return tabSimbolos.pesquisaPalavra(String.valueOf(caracter));
 			
-				//Verifica _ se é segudo pelos valores aceitos na linguagem
+				//Verifica _ se é seguido pelos valores aceitos na linguagem
 			case '_':			
 				lexema += String.valueOf(caracter);
 				
@@ -56,7 +56,7 @@ public class AnLexico {
 					//insere na tabela
 				}
 				return tabSimbolos.pesquisaPalavra(lexema);
-			
+				//Verifica aspas simples, se é seguido pelos valores aceitos na linguagem
 			case '\'':
 				lexema += caracter;
 				caracter = leitorArquivo.getNextChar();
@@ -70,14 +70,16 @@ public class AnLexico {
 				}
 				return tabSimbolos.pesquisaPalavra(lexema);
 				
+				//verifica operador <-
 			case '<':
 				caracter = leitorArquivo.getNextChar();
 				if (caracter == '-'){
 					lexema += '<'+caracter;
 					return tabSimbolos.pesquisaPalavra(lexema);
 				}
+				//POSIÇÃO (lin, col) | MENSAGEM 
 				else
-					errorHandler.setError("O caracter < deveria ser seguido por \"-\". \n Erro: Linha - "+leitorArquivo.getColumn()+" Coluna - "+leitorArquivo.getLine());
+					errorHandler.setError(leitorArquivo.getLine()+", "+leitorArquivo.getColumn()+" | O caracter < deveria ser seguido por \"-\". ");
 				break;
 				
 				//Verificação para operadores
@@ -92,8 +94,8 @@ public class AnLexico {
 				if(lexema == "&<&" || lexema == "&>&" || lexema == "&>=&" || lexema == "&<=&" || lexema == "&=&" || lexema == "&<>&" )
 					return tabSimbolos.pesquisaPalavra(lexema);
 				else{
-					errorHandler.setError("Operador " +lexema+ " não é válido. \n Erro: Linha - "+leitorArquivo.getColumn()+" Coluna - "+leitorArquivo.getLine());
-				}
+					errorHandler.setError(leitorArquivo.getLine()+", "+leitorArquivo.getColumn()+" | Operador " +lexema+ " não é válido.");
+					}
 				break; // em caso de erro, realiza a leitura do caracter novamente, para ver se não pertence à outro padrão
 
 				//** CASO NÃO SEJA SOMENTE UM SÍMBOLO E SIM UM CONJUNTO **//
@@ -124,7 +126,7 @@ public class AnLexico {
 						lexema += String.valueOf(caracter);
 							if (caracter == 'E'){
 								indiceE = exponencialEncontrado();
-								if(indiceE == 0)
+								if(indiceE == 0) //caso + não seja encontrado, mantem somente os número e retorna.
 									return tabSimbolos.pesquisaPalavra(lexema);//E irá para erro na próxima execução	
 							}
 							
@@ -133,20 +135,31 @@ public class AnLexico {
 								
 								if(Character.isDigit(caracter) || caracter == 'E'){
 									
+									//verifica se existe um E depois do .
 									if (caracter == 'E'){
-										indiceE = exponencialEncontrado();
-										if(indiceE == 0)
-										return tabSimbolos.pesquisaPalavra(lexema);//E irá para erro na próxima execução
+										caracter = leitorArquivo.getNextChar();
+										if(caracter == '+'){
+											lexema += ".E"+String.valueOf(caracter);	
+											indiceE++;
+										}
+										else{
+											caracter = 'E';
+											return tabSimbolos.pesquisaPalavra(lexema);//E irá para erro na próxima execução
+										}
 									}
 									
+									//Somente adiciona o . no lexema
 									else{
 									lexema += "."+String.valueOf(caracter);	
 									indicePonto++;
 									}
 									
 								}
+								//Seta erro para ".", já que não existem lexemas começados com ".".
 								else{
-									caracter = '.';
+									errorHandler.setError(leitorArquivo.getLine()+", "+leitorArquivo.getColumn()+" | O uso de . mais de uma vez para um número é inválido.");
+									
+									caracter = leitorArquivo.getNextChar();
 									return tabSimbolos.pesquisaPalavra(lexema);//. irá para erro na próxima execução	
 								}
 							}
@@ -160,7 +173,7 @@ public class AnLexico {
 				//** Análise para números (inteiros ou decimais)
 				if (Character.isLetter(caracter)) {
 					lexema += caracter;
-					while (Character.isDigit(caracter) && Character.isLetter(caracter) && caracter == '_' ){
+					while (Character.isDigit(caracter) || Character.isLetter(caracter) || caracter == '_' ){
 						caracter = leitorArquivo.getNextChar();
 						lexema += caracter;
 					}
@@ -171,8 +184,9 @@ public class AnLexico {
 					return tabSimbolos.pesquisaPalavra(lexema);
 				}
 				
+				//Erros gerais não pegos anteriormente.
 				else{
-					errorHandler.setError("Caracter " +caracter+ " não é válido. \n Erro: Linha - "+leitorArquivo.getColumn()+" Coluna - "+leitorArquivo.getLine());
+					errorHandler.setError(leitorArquivo.getLine()+", "+leitorArquivo.getColumn()+" | Caracter " +caracter+ " não é válido. ");
 					caracter = leitorArquivo.getNextChar();
 				}
 				break;
@@ -216,7 +230,7 @@ public class AnLexico {
 	public List <String> retornarErros(){
 		return errorHandler.getErrors();
 	}
-	public int exponencialEncontrado(){
+	public int exponencialEncontrado(){ //Verifica se depois do E, o próximo caracter é +. Caso não, retorna 0, para o apontamento de um erro e retorna E para que outro lexema possa ser formado.
 		int indiceE = 0;
 		try {
 			caracter = leitorArquivo.getNextChar();
@@ -233,4 +247,5 @@ public class AnLexico {
 		return indiceE;//E deve pertencer à outra palavra
 	}
 
+	
 }
