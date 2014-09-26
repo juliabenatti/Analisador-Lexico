@@ -9,46 +9,49 @@ import com.br.analisadorlexico.componentes.Token;
 
 public class AnSintatico {
 		
-	public static void main(String[] args) {
-		String caminho = JOptionPane
-				.showInputDialog("Digite o caminho do arquivo");
+	public boolean analise(String caminho) {
+		
 		AnLexico analisadorLexico = new AnLexico(caminho);
 		List<Token> listaTokens = new ArrayList<Token>();
 		Token tk;
 		int contador = 0;
 		
 		System.out.println("TOKENS ENCONTRADOS:");
-		System.out.println("ORDEM | TOKEN | LEXEMA | POSI«√O (lin, col)");
+		System.out.println("ORDEM | TOKEN | LEXEMA | POSI√á√ÉO (lin, col)");
 		
 		do {
 			tk = new Token();
 			tk = analisadorLexico.nextToken();
 			if(tk == null){
-				//N„o exibe nada
+				//N√£o exibe nada
 			}
 			else{
 				listaTokens.add(tk);
 				System.out.println(contador + " | "+tk.getToken()+" | "+tk.getLexema()+" | "+(tk.getLinha()+", "+tk.getColuna()));
 			}
 
-		} while (tk.getToken()!="EOF");
+		} while (tk.getToken()!= "EOF");
 		System.out.println("");
 		
-		System.out.println("RELAT”RIO DE ERROS:");
-		System.out.println("POSI«√O (lin, col) | MENSAGEM ");
+		System.out.println("RELAT√ìRIO DE ERROS:");
+		System.out.println("POSI√á√ÉO (lin, col) | MENSAGEM ");
 		
 		for(String erro : analisadorLexico.retornarErros())
 			System.out.println(erro);
 		
 		if(analisadorLexico.retornarErros().size() == 0)
-			System.out.println("Nenhum erro lÈxico foi encontrado.");
+			System.out.println("Nenhum erro l√©xico foi encontrado.");
 		
 		System.out.println("");
 		
-		System.out.println("ESTADO DA TABELA DE SÕMBOLOS:");
-		System.out.println("ORDEM | TOKEN | LEXEMA | POSI«√O FINAL (lin, col) ");
+		System.out.println("ESTADO DA TABELA DE S√çMBOLOS:");
+		System.out.println("ORDEM | TOKEN | LEXEMA | POSI√á√ÉO FINAL (lin, col) ");
 		//retorna tabela de simbolos - Alvinho
 		
+		if (analisadorLexico.retornarErros().size() == 0)
+			return true;
+		else
+			return false;
 		
 	}
 }

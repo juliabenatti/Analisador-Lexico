@@ -55,7 +55,7 @@ public class TabSimbolos {
 	
 	public Token pesquisaPalavra(String token){
 		
-		if(token.charAt(0) == '\"')
+		if(token.charAt(0) == '\'')
 			token = "literal";			// Retorna LITERAL se comecar com aspas
 		
 		if(isInt(token))
