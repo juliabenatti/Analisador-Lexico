@@ -42,7 +42,7 @@ public class Token {
 
 	public void setLinhaColuna(int linha, int coluna) {
 		this.coluna = coluna;
-		this.linha = linha
+		this.linha = linha //Atualiza os dois de uma vez
 	}
 
 	public Token() {

@@ -47,7 +47,7 @@ public class TabSimbolos {
 		listaToken.add(new Token(23,"WHILE","while"));
 		listaToken.add(new Token(24,"DECLARE","declare"));
 		listaToken.add(new Token(25,"TO","to"));
-		listaToken.add(new Token(26,"EOF","eof"));
+		listaToken.add(new Token(26,"EOF","eof")); 
 	}
 	
 	public static TabSimbolos getInstance(){
@@ -86,7 +86,7 @@ public class TabSimbolos {
         }
     }
     
-    public static boolean isFloat(String texto) { // Verifica se 'e FLOAT
+    public static boolean isFloat(String texto) { // Verifica se e FLOAT
         try {
             Float.parseFloat(texto);
             return true;
