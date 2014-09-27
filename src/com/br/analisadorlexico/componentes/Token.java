@@ -12,6 +12,13 @@ public class Token {
 		this.token = token;
 		this.lexema = lexema;
 	}
+	public Token(int id, String token, String lexema, int linha, int coluna) {
+		this.id = id;
+		this.token = token;
+		this.lexema = lexema;
+		this.linha = linha;
+		this.coluna = coluna;
+	}
 
 	public int getId() {
 		return id;
@@ -29,16 +36,13 @@ public class Token {
 		return linha;
 	}
 
-	public void setLinha(int linha) {
-		this.linha = linha;
-	}
-
 	public int getColuna() {
 		return coluna;
 	}
 
-	public void setColuna(int coluna) {
+	public void setLinhaColuna(int linha, int coluna) {
 		this.coluna = coluna;
+		this.linha = linha
 	}
 
 	public Token() {
