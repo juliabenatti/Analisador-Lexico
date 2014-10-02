@@ -14,7 +14,7 @@ public class AnSintatico {
 		AnLexico analisadorLexico = new AnLexico(caminho);
 		List<Token> listaTokens = new ArrayList<Token>();
 		Token tk;
-		int contador = 0;
+		int contador = 1;
 		
 		System.out.println("TOKENS ENCONTRADOS:");
 		System.out.println("ORDEM | TOKEN | LEXEMA | POSIÇÃO (lin, col)");
@@ -29,7 +29,7 @@ public class AnSintatico {
 				listaTokens.add(tk);
 				System.out.println(contador + " | "+tk.getToken()+" | "+tk.getLexema()+" | "+(tk.getLinha()+", "+tk.getColuna()));
 			}
-
+			contador++;
 		} while (tk.getToken()!= "EOF");
 		System.out.println("");
 		

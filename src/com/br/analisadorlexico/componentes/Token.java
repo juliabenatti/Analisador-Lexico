@@ -4,13 +4,21 @@ public class Token {
 	private int id;
 	private String token;
 	private String lexema;
-	private int linha;
-	private int coluna;
+	private long linha;
+	private long coluna;
 
 	public Token(int id, String token, String lexema) {
 		this.id = id;
 		this.token = token;
 		this.lexema = lexema;
+	}
+
+	public Token(int id, String token, String lexema, long linha, long coluna) {
+		this.id = id;
+		this.token = token;
+		this.lexema = lexema;
+		this.linha = linha;
+		this.coluna = coluna;
 	}
 
 	public int getId() {
@@ -25,19 +33,19 @@ public class Token {
 		return lexema;
 	}
 
-	public int getLinha() {
+	public long getLinha() {
 		return linha;
 	}
 
-	public void setLinha(int linha) {
-		this.linha = linha;
-	}
-
-	public int getColuna() {
+	public long getColuna() {
 		return coluna;
 	}
 
-	public void setColuna(int coluna) {
+	public void setLinha(long linha) {
+		this.linha = linha;
+	}
+
+	public void setColuna(long coluna) {
 		this.coluna = coluna;
 	}
 

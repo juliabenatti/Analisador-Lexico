@@ -18,6 +18,7 @@ public class AnLexico {
 	private TabSimbolos tabSimbolos = TabSimbolos.getInstance();
 	private ErrorHandler errorHandler = ErrorHandler.getInstance();
 	private Token token = new Token();
+	public static String caminhoArquivo;
 
 	public Token nextToken() {
 
@@ -44,8 +45,9 @@ public class AnLexico {
 				case ';':
 				case '(':
 				case ')':
+					primeiroCaracter = true;
 					return tabSimbolos
-							.pesquisaPalavra(String.valueOf(caracter));
+							.pesquisaPalavra(String.valueOf(caracter),leitorArquivo.getLine(),leitorArquivo.getColumn());
 
 					
 					
@@ -63,11 +65,11 @@ public class AnLexico {
 						caracter = leitorArquivo.getNextChar();
 						lexema.append(caracter);
 					}
-					token = tabSimbolos.pesquisaPalavra(String.valueOf(lexema));
+					token = tabSimbolos.pesquisaPalavra(String.valueOf(lexema),leitorArquivo.getLine(),leitorArquivo.getColumn());
 					if (token == null) {
 						// insere na tabela
 					}
-					return tabSimbolos.pesquisaPalavra(String.valueOf(lexema));
+					return tabSimbolos.pesquisaPalavra(String.valueOf(lexema),leitorArquivo.getLine(),leitorArquivo.getColumn());
 
 					
 					
@@ -88,7 +90,7 @@ public class AnLexico {
 						lexema.append(caracter);
 						caracter = leitorArquivo.getNextChar();
 					}
-					return tabSimbolos.pesquisaPalavra(String.valueOf(lexema));
+					return tabSimbolos.pesquisaPalavra(String.valueOf(lexema),leitorArquivo.getLine(),leitorArquivo.getColumn());
 
 					
 					
@@ -100,8 +102,7 @@ public class AnLexico {
 					if (caracter == '-') {
 						lexema.append('<');
 						lexema.append(caracter);
-						return tabSimbolos.pesquisaPalavra(String
-								.valueOf(lexema));
+						return tabSimbolos.pesquisaPalavra(String.valueOf(lexema),leitorArquivo.getLine(),leitorArquivo.getColumn());
 					} else
 						errorHandler
 								.setError(leitorArquivo.getLine()
@@ -130,8 +131,7 @@ public class AnLexico {
 					if (lexema.equals("&<&") || lexema.equals("&>&")
 							|| lexema.equals("&>=&") || lexema.equals("&<=&")
 							|| lexema.equals("&=&") || lexema.equals("&<>&"))
-						return tabSimbolos.pesquisaPalavra(String
-								.valueOf(lexema));
+						return tabSimbolos.pesquisaPalavra(String.valueOf(lexema),leitorArquivo.getLine(),leitorArquivo.getColumn());
 
 					else {
 						errorHandler.setError(leitorArquivo.getLine() + ", "
@@ -153,6 +153,11 @@ public class AnLexico {
 					// Verifica se é espaço em branco e ignora, continuando para
 					// a próxima interação do while (checar um novo caracter)
 					if (Character.isWhitespace(caracter)) {
+						caracter = leitorArquivo.getNextChar();
+						break;
+					}
+					// Verifica se /n e ignora
+					if (String.valueOf(caracter).equals("\\n")) {
 						caracter = leitorArquivo.getNextChar();
 						break;
 					}
@@ -187,8 +192,7 @@ public class AnLexico {
 								if (indiceE == 0) // caso + não seja encontrado,
 													// mantem somente os número
 													// e retorna.
-									return tabSimbolos.pesquisaPalavra(String
-											.valueOf(lexema));// E irá para erro
+									return tabSimbolos.pesquisaPalavra(String.valueOf(lexema),leitorArquivo.getLine(),leitorArquivo.getColumn());// E irá para erro
 																// na próxima
 																// execução
 							}
@@ -209,8 +213,7 @@ public class AnLexico {
 										} else {
 											caracter = 'E';
 											return tabSimbolos
-													.pesquisaPalavra(String
-															.valueOf(lexema));// E
+													.pesquisaPalavra(String.valueOf(lexema),leitorArquivo.getLine(),leitorArquivo.getColumn());// E
 																				// irá
 																				// para
 																				// erro
@@ -238,8 +241,7 @@ public class AnLexico {
 													+ " | O uso de . mais de uma vez para um número é inválido.");
 
 									caracter = leitorArquivo.getNextChar();
-									return tabSimbolos.pesquisaPalavra(String
-											.valueOf(lexema));// . irá para erro
+									return tabSimbolos.pesquisaPalavra(String.valueOf(lexema),leitorArquivo.getLine(),leitorArquivo.getColumn());// . irá para erro
 																// na próxima
 																// execução
 								}
@@ -247,8 +249,7 @@ public class AnLexico {
 							// Pede um novo caracter ao arquivo
 							caracter = leitorArquivo.getNextChar();
 						}
-						return tabSimbolos.pesquisaPalavra(String
-								.valueOf(lexema));// retorna token e finaliza a
+						return tabSimbolos.pesquisaPalavra(String.valueOf(lexema),leitorArquivo.getLine(),leitorArquivo.getColumn());// retorna token e finaliza a
 													// execução do método
 
 					}
@@ -262,13 +263,7 @@ public class AnLexico {
 							caracter = leitorArquivo.getNextChar();
 							lexema.append(caracter);
 						}
-						token = tabSimbolos.pesquisaPalavra(String
-								.valueOf(lexema));
-						if (token == null) {
-							// insere na tabela
-						}
-						return tabSimbolos.pesquisaPalavra(String
-								.valueOf(lexema));
+						return tabSimbolos.pesquisaPalavra(String.valueOf(lexema),leitorArquivo.getLine(),leitorArquivo.getColumn());
 					}
 
 					// Erros gerais não pegos anteriormente.
@@ -284,11 +279,11 @@ public class AnLexico {
 			}
 
 		} catch(EOFException eo){
-			return tabSimbolos.pesquisaPalavra("EOF");
+			return tabSimbolos.pesquisaPalavra("EOF",leitorArquivo.getLine(),leitorArquivo.getColumn());
 		}
 		
 		catch(IOException io){
-			return tabSimbolos.pesquisaPalavra("EOF");
+			return tabSimbolos.pesquisaPalavra("EOF",leitorArquivo.getLine(),leitorArquivo.getColumn());
 		}
 		catch (Exception e) {
 			System.out.println("Não foi possível recuperar caracter.");
@@ -309,7 +304,7 @@ public class AnLexico {
 	}
 
 	public List<String> retornarErros() {
-		return errorHandler.getErrors();
+		return errorHandler.getError();
 	}
 
 	public int exponencialEncontrado() throws EOFException, IOException { // Verifica se depois do E, o próximo
