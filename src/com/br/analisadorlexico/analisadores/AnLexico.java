@@ -12,6 +12,7 @@ import com.br.analisadorlexico.utils.FileHandler;
 
 public class AnLexico {
 
+	private String caminhoArquivo = new String();
 	private StringBuilder lexema = new StringBuilder();
 	private char caracter;
 	private boolean primeiroCaracter = true;
@@ -335,6 +336,7 @@ public class AnLexico {
 	public AnLexico(String caminhoArquivo) {
 		try {
 			leitorArquivo = new FileHandler(caminhoArquivo);
+			this.caminhoArquivo=caminhoArquivo;
 		} catch (FileNotFoundException e) {
 			System.out.println("Arquivo não encontrado.");
 		}
