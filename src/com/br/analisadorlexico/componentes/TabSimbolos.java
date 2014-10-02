@@ -13,12 +13,12 @@ public class TabSimbolos {
 		listaToken.add(new Token(2,"NUM_FLOAT","float"));
 		listaToken.add(new Token(3,"LITERAL","literal"));
 		listaToken.add(new Token(4,"ID","variavel"));
-		listaToken.add(new Token(5,"REL_OP","&<&"));
-		listaToken.add(new Token(5,"REL_OP","&>&"));
-		listaToken.add(new Token(5,"REL_OP","&<=&"));
-		listaToken.add(new Token(5,"REL_OP","&>=&"));
-		listaToken.add(new Token(5,"REL_OP","&=&"));
-		listaToken.add(new Token(5,"REL_OP","&<>&"));
+		listaToken.add(new Token(5,"REL_OP","<"));
+		listaToken.add(new Token(5,"REL_OP",">"));
+		listaToken.add(new Token(5,"REL_OP","<="));
+		listaToken.add(new Token(5,"REL_OP",">="));
+		listaToken.add(new Token(5,"REL_OP","="));
+		listaToken.add(new Token(5,"REL_OP","<>"));
 		listaToken.add(new Token(6,"ADDSUB_OP","-"));
 		listaToken.add(new Token(6,"ADDSUB_OP","+"));
 		listaToken.add(new Token(7,"MULTDIV_OP","*"));
@@ -47,34 +47,28 @@ public class TabSimbolos {
 		listaToken.add(new Token(23,"WHILE","while"));
 		listaToken.add(new Token(24,"DECLARE","declare"));
 		listaToken.add(new Token(25,"TO","to"));
-		listaToken.add(new Token(26,"EOF","eof")); 
 	}
 	
 	public static TabSimbolos getInstance(){
 		return instancia;
 	}
 	
-	public Token pesquisaPalavra(String lex, int l, int c){
+	public Token pesquisaPalavra(String token){
 		
 		if(token.charAt(0) == '\'')
-			lex = "literal";			// Retorna LITERAL se comecar com aspas
+			token = "literal";			// Retorna LITERAL se comecar com aspas
 		
 		if(isInt(token))
-			lex = "inteiro";			// Retorna NUM_INT primeiro
+			token = "inteiro";			// Retorna NUM_INT primeiro
 										// Retornar NUM_FLOAT primeiro vai dar errado
 		if(isFloat(token))
-			lex = "float";			// Retorna NUM_FLOAT se for float
+			token = "float";			// Retorna NUM_FLOAT se for float
 		
-		for (Token ltoken : listaToken)			// Pega token por token
-			if(ltoken.getLexema().equals(lex)){	// Verifica se o token existe
-				ltoken.setLinhaColuna(l, c);
-				return ltoken; 	
-			}						// Se existe, grava linha/coluna e retorna o token
-		
-		Token x = new Token(4,"ID",lex,l,c); // Se nao existe, considera que eh ID
-    	listaToken.add(x);
+		for (Token ltoken : listaToken) 			// Pega token por token
+			if(ltoken.getLexema().equals(token))	// Verifica se o token existe
+				return ltoken; 			// Se existe, retorna o token
 
-		return x;			
+		return isID("");			// Para qualquer outra coisa, retorna null
 	}
 	
     public static boolean isInt(String texto) { // Verifica se 'e INT
@@ -86,12 +80,17 @@ public class TabSimbolos {
         }
     }
     
-    public static boolean isFloat(String texto) { // Verifica se e FLOAT
+    public static boolean isFloat(String texto) { // Verifica se 'e FLOAT
         try {
             Float.parseFloat(texto);
             return true;
         } catch (NumberFormatException err) {
             return false;
         }
+    }
+    
+    public Token isID(String valor){
+    	
+    	return null;
     }
 }

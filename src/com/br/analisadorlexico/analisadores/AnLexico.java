@@ -9,10 +9,8 @@ import com.br.analisadorlexico.componentes.TabSimbolos;
 import com.br.analisadorlexico.componentes.Token;
 import com.br.analisadorlexico.utils.FileHandler;
 
-
 public class AnLexico {
 
-	private String caminhoArquivo = new String();
 	private StringBuilder lexema = new StringBuilder();
 	private char caracter;
 	private boolean primeiroCaracter = true;
@@ -28,7 +26,7 @@ public class AnLexico {
 			if (primeiroCaracter) {
 				primeiroCaracter = false;
 				// Chama, da classe do professor, a leitura do arquivo, passando
-				// como par‚metro o caminho
+				// como par√¢metro o caminho
 				caracter = leitorArquivo.getNextChar();
 			}
 
@@ -38,7 +36,7 @@ public class AnLexico {
 
 				switch (caracter) {
 
-				// Verifique se o caracter (que È ˙nico) È v·lido
+				// Verifique se o caracter (que √© √∫nico) √© v√°lido
 				case '+':
 				case '-':
 				case '*':
@@ -54,7 +52,7 @@ public class AnLexico {
 					
 					
 					
-					// Verifica _ se È seguido pelos valores aceitos na
+					// Verifica _ se √© seguido pelos valores aceitos na
 					// linguagem
 				case '_':
 					lexema.append(caracter);
@@ -76,7 +74,7 @@ public class AnLexico {
 					
 					
 					
-					// Verifica aspas simples, se È seguido pelos valores
+					// Verifica aspas simples, se √© seguido pelos valores
 					// aceitos na linguagem
 				case '\'':
 					lexema.append(caracter);
@@ -118,7 +116,7 @@ public class AnLexico {
 					
 					
 					
-				// VerificaÁ„o para operadores
+				// Verifica√ß√£o para operadores
 				case '&':
 					lexema.append(caracter);
 					while (caracter != '&'
@@ -128,7 +126,7 @@ public class AnLexico {
 					}
 					caracter = leitorArquivo.getNextChar();
 
-					// teste para os lexemas v·lidos. Caso n„o seja
+					// teste para os lexemas v√°lidos. Caso n√£o seja
 					if (lexema.equals("&<&") || lexema.equals("&>&")
 							|| lexema.equals("&>=&") || lexema.equals("&<=&")
 							|| lexema.equals("&=&") || lexema.equals("&<>&"))
@@ -138,22 +136,22 @@ public class AnLexico {
 					else {
 						errorHandler.setError(leitorArquivo.getLine() + ", "
 								+ leitorArquivo.getColumn() + " | Operador "
-								+ lexema + " n„o È v·lido.");
+								+ lexema + " n√£o √© v√°lido.");
 					}
 					break; // em caso de erro, realiza a leitura do caracter
-							// novamente, para ver se n„o pertence ‡ outro
-							// padr„o
+							// novamente, para ver se n√£o pertence √† outro
+							// padr√£o
 
 					
 					
 					
 					
 					
-				// ** CASO N√O SEJA SOMENTE UM SÕMBOLO E SIM UM CONJUNTO **//
+				// ** CASO N√ÉO SEJA SOMENTE UM S√çMBOLO E SIM UM CONJUNTO **//
 				default:
 
-					// Verifica se È espaÁo em branco e ignora, continuando para
-					// a prÛxima interaÁ„o do while (checar um novo caracter)
+					// Verifica se √© espa√ßo em branco e ignora, continuando para
+					// a pr√≥xima intera√ß√£o do while (checar um novo caracter)
 					if (Character.isWhitespace(caracter)) {
 						caracter = leitorArquivo.getNextChar();
 						break;
@@ -161,8 +159,8 @@ public class AnLexico {
 
 					
 					
-					// Verifica se È coment·rio e ignora, continuando para a
-					// prÛxima interaÁ„o do while (checar um novo caracter)
+					// Verifica se √© coment√°rio e ignora, continuando para a
+					// pr√≥xima intera√ß√£o do while (checar um novo caracter)
 					if (caracter == '#') {
 						caracter = leitorArquivo.getNextChar();
 						continueLeituraComentario();
@@ -171,14 +169,14 @@ public class AnLexico {
 
 					
 					
-					// ** An·lise para n˙meros (inteiros ou decimais)
-					// Verifica se È um n˙mero e faz a an·lise se a continuaÁ„o
-					// dele È v·lida e retorna o token (float e int)
+					// ** An√°lise para n√∫meros (inteiros ou decimais)
+					// Verifica se √© um n√∫mero e faz a an√°lise se a continua√ß√£o
+					// dele √© v√°lida e retorna o token (float e int)
 					if (Character.isDigit(caracter)) {
 
 						int indicePonto = 0, indiceE = 0;
 
-						// Enquando n„o sair do padr„o de n˙mero, . (somente uma
+						// Enquando n√£o sair do padr√£o de n√∫mero, . (somente uma
 						// ocorrencia) e E (somente uma ocorrencia)
 						while (Character.isDigit(caracter)
 								|| (caracter == '.' && indicePonto <= 1)
@@ -186,13 +184,13 @@ public class AnLexico {
 							lexema.append(caracter);
 							if (caracter == 'E') {
 								indiceE = exponencialEncontrado();
-								if (indiceE == 0) // caso + n„o seja encontrado,
-													// mantem somente os n˙mero
+								if (indiceE == 0) // caso + n√£o seja encontrado,
+													// mantem somente os n√∫mero
 													// e retorna.
 									return tabSimbolos.pesquisaPalavra(String
-											.valueOf(lexema));// E ir· para erro
-																// na prÛxima
-																// execuÁ„o
+											.valueOf(lexema));// E ir√° para erro
+																// na pr√≥xima
+																// execu√ß√£o
 							}
 
 							if (caracter == '.') {
@@ -213,12 +211,12 @@ public class AnLexico {
 											return tabSimbolos
 													.pesquisaPalavra(String
 															.valueOf(lexema));// E
-																				// ir·
+																				// ir√°
 																				// para
 																				// erro
 																				// na
-																				// prÛxima
-																				// execuÁ„o
+																				// pr√≥xima
+																				// execu√ß√£o
 										}
 									}
 
@@ -230,20 +228,20 @@ public class AnLexico {
 									}
 
 								}
-								// Seta erro para ".", j· que n„o existem
-								// lexemas comeÁados com ".".
+								// Seta erro para ".", j√° que n√£o existem
+								// lexemas come√ßados com ".".
 								else {
 									errorHandler
 											.setError(leitorArquivo.getLine()
 													+ ", "
 													+ leitorArquivo.getColumn()
-													+ " | O uso de . mais de uma vez para um n˙mero È inv·lido.");
+													+ " | O uso de . mais de uma vez para um n√∫mero √© inv√°lido.");
 
 									caracter = leitorArquivo.getNextChar();
 									return tabSimbolos.pesquisaPalavra(String
-											.valueOf(lexema));// . ir· para erro
-																// na prÛxima
-																// execuÁ„o
+											.valueOf(lexema));// . ir√° para erro
+																// na pr√≥xima
+																// execu√ß√£o
 								}
 							}
 							// Pede um novo caracter ao arquivo
@@ -251,11 +249,11 @@ public class AnLexico {
 						}
 						return tabSimbolos.pesquisaPalavra(String
 								.valueOf(lexema));// retorna token e finaliza a
-													// execuÁ„o do mÈtodo
+													// execu√ß√£o do m√©todo
 
 					}
 
-					// ** An·lise para letras (possÌveis palavras reservadas
+					// ** An√°lise para letras (poss√≠veis palavras reservadas
 					if (Character.isLetter(caracter)) {
 						lexema.append(caracter);
 						while (Character.isDigit(caracter)
@@ -273,11 +271,11 @@ public class AnLexico {
 								.valueOf(lexema));
 					}
 
-					// Erros gerais n„o pegos anteriormente.
+					// Erros gerais n√£o pegos anteriormente.
 					else {
 						errorHandler.setError(leitorArquivo.getLine() + ", "
 								+ leitorArquivo.getColumn() + " | Caracter "
-								+ caracter + " n„o È v·lido. ");
+								+ caracter + " n√£o √© v√°lido. ");
 						caracter = leitorArquivo.getNextChar();
 					}
 					break;
@@ -293,13 +291,13 @@ public class AnLexico {
 			return tabSimbolos.pesquisaPalavra("EOF");
 		}
 		catch (Exception e) {
-			System.out.println("N„o foi possÌvel recuperar caracter.");
+			System.out.println("N√£o foi poss√≠vel recuperar caracter.");
 		}
 		return null; // caso nada seja encontrado.
 	}
 
 	public void continueLeituraComentario() throws EOFException, IOException{
-		// enquanto n„o encontrar o fim do coment·rio
+		// enquanto n√£o encontrar o fim do coment√°rio
 		while (true) {
 
 				caracter = leitorArquivo.getNextChar();
@@ -314,8 +312,8 @@ public class AnLexico {
 		return errorHandler.getErrors();
 	}
 
-	public int exponencialEncontrado() throws EOFException, IOException { // Verifica se depois do E, o prÛximo
-											// caracter È +. Caso n„o, retorna
+	public int exponencialEncontrado() throws EOFException, IOException { // Verifica se depois do E, o pr√≥ximo
+											// caracter √© +. Caso n√£o, retorna
 											// 0, para o apontamento de um erro
 											// e retorna E para que outro lexema
 											// possa ser formado.
@@ -330,15 +328,14 @@ public class AnLexico {
 		} else
 			caracter = 'E';
 
-		return indiceE;// E deve pertencer ‡ outra palavra
+		return indiceE;// E deve pertencer √† outra palavra
 	}
 
 	public AnLexico(String caminhoArquivo) {
 		try {
 			leitorArquivo = new FileHandler(caminhoArquivo);
-			this.caminhoArquivo=caminhoArquivo;
 		} catch (FileNotFoundException e) {
-			System.out.println("Arquivo n„o encontrado.");
+			System.out.println("Arquivo n√£o encontrado.");
 		}
 	}
 

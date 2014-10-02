@@ -64,11 +64,11 @@ public class TelaPrincipal extends JFrame {
 		
 		final AnSintatico anSintatico = new AnSintatico();
 		
-		final JLabel sucesso = new JLabel("CÛdigo validado com sucesso. Veja o log.");
+		final JLabel sucesso = new JLabel("C√≥digo validado com sucesso. Veja o log.");
 		sucesso.setForeground(UIManager.getColor("OptionPane.questionDialog.border.background"));
 		sucesso.setVisible(false);
 		
-		final JLabel problemas = new JLabel("CÛdigo com erros. Veja o log");
+		final JLabel problemas = new JLabel("C√≥digo com erros. Veja o log");
 		problemas.setForeground(UIManager.getColor("OptionPane.errorDialog.border.background"));
 		problemas.setVisible(false);
 		
@@ -88,11 +88,11 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		
-		JButton btnAnalise = new JButton("ComeÁar an·lise!");
+		JButton btnAnalise = new JButton("Come√ßar an√°lise!");
 		btnAnalise.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textField.getText().isEmpty())
-					JOptionPane.showMessageDialog(null, "Caminho do arquivo n„o encontrado");
+					JOptionPane.showMessageDialog(null, "Caminho do arquivo n√£o encontrado");
 				else{
 				boolean codigoOk = anSintatico.analise(textField.getText());
 				
