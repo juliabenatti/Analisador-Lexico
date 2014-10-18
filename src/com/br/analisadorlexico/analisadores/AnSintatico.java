@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import com.br.analisadorlexico.componentes.TabSimbolos;
 import com.br.analisadorlexico.componentes.Token;
 
 public class AnSintatico {
@@ -46,12 +47,21 @@ public class AnSintatico {
 		
 		System.out.println("ESTADO DA TABELA DE SÍMBOLOS:");
 		System.out.println("ORDEM | TOKEN | LEXEMA | POSIÇÃO FINAL (lin, col) ");
-		//retorna tabela de simbolos - Alvinho
+			TabSimbolos tS = TabSimbolos.getInstance();
+			int cont = 1;
+			
+			for (Token t : tS.getListaToken()){
+				System.out.println(cont +" | "+t.getToken()+" | "+t.getLexema()+" | "+t.getLinha()+" | "+t.getColuna());
+				cont++;
+			}
 		
 		if (analisadorLexico.retornarErros().size() == 0)
 			return true;
-		else
+		else{
+			ErrorHandler eH = ErrorHandler.getInstance();
+			eH.writeError();
 			return false;
+		}
 		
 	}
 }

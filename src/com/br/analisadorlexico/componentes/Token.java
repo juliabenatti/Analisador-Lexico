@@ -32,6 +32,10 @@ public class Token {
 	public String getLexema() {
 		return lexema;
 	}
+	
+	public void setLexema(String lexema) {
+		this.lexema = lexema;
+	}
 
 	public long getLinha() {
 		return linha;

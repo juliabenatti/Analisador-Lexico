@@ -19,6 +19,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import com.br.analisadorlexico.analisadores.AnLexico;
 import com.br.analisadorlexico.analisadores.AnSintatico;
 
 public class TelaPrincipal extends JFrame {
@@ -61,14 +62,15 @@ public class TelaPrincipal extends JFrame {
 
 		textField = new JTextField();
 		textField.setColumns(10);
+		textField.setText("");
 		
 		final AnSintatico anSintatico = new AnSintatico();
 		
-		final JLabel sucesso = new JLabel("C√≥digo validado com sucesso. Veja o log.");
+		final JLabel sucesso = new JLabel("CÛdigo validado com sucesso.");
 		sucesso.setForeground(UIManager.getColor("OptionPane.questionDialog.border.background"));
 		sucesso.setVisible(false);
 		
-		final JLabel problemas = new JLabel("C√≥digo com erros. Veja o log");
+		final JLabel problemas = new JLabel("CÛdigo com erros. Veja o log em ");
 		problemas.setForeground(UIManager.getColor("OptionPane.errorDialog.border.background"));
 		problemas.setVisible(false);
 		
@@ -82,24 +84,30 @@ public class TelaPrincipal extends JFrame {
 			    problemas.setVisible(false);
 			               if (retorno == JFileChooser.APPROVE_OPTION){
 			                     caminho = abrir.getSelectedFile().getAbsolutePath();  
-			                     textField.setText(caminho);
-			                     
+			                     textField.setText(caminho);   
 			               }
 			}
 		});
 		
-		JButton btnAnalise = new JButton("Come√ßar an√°lise!");
+		JButton btnAnalise = new JButton("ComeÁar an·lise!");
 		btnAnalise.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textField.getText().isEmpty())
-					JOptionPane.showMessageDialog(null, "Caminho do arquivo n√£o encontrado");
+					JOptionPane.showMessageDialog(null, "Caminho do arquivo n„o encontrado");
 				else{
 				boolean codigoOk = anSintatico.analise(textField.getText());
 				
-				if(codigoOk)
+				int indice = AnLexico.caminhoArquivo.lastIndexOf("/");
+				String caminhoArquivo = AnLexico.caminhoArquivo.substring(0, indice) ;
+				
+				if(codigoOk){
+					
 					sucesso.setVisible(true);
-				else
+				}
+				else{
+					problemas.setText("CÛdigo com erros. Veja o log em "+caminhoArquivo);
 					problemas.setVisible(true);
+				}
 				}
 			}
 		});

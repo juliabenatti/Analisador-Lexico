@@ -19,14 +19,16 @@ public class ErrorHandler {
 
 	public void writeError() {
 		try {
-			File file = new File(AnLexico.caminhoArquivo, "banco.txt");
+			int indice = AnLexico.caminhoArquivo.lastIndexOf("/");
+			String caminhoArquivo = AnLexico.caminhoArquivo.substring(0, indice) ;
+			File file = new File(caminhoArquivo, "errorLog.txt");
 			FileWriter arquivo = new FileWriter(file);
 			for (String e : erros) {
-				arquivo.write(e);
+				arquivo.write(e+"\n");
 			}
 			arquivo.close();
 		} catch (Exception e) {
-			System.out.println("Arquivo n√£o encontrado.");
+			System.out.println("Arquivo n„o encontrado.");
 		}
 	}
 
