@@ -12,6 +12,11 @@ public class Token {
 		this.token = token;
 		this.lexema = lexema;
 	}
+	public Token(String token, String lexema) {
+		
+		this.token = token;
+		this.lexema = lexema;
+	}
 
 	public Token(int id, String token, String lexema, long linha, long coluna) {
 		this.id = id;
