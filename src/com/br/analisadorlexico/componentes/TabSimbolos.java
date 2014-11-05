@@ -142,11 +142,12 @@ public class TabSimbolos {
 		}
 		
 		public Token retornaNumero(String lex, long l, long c){
-			if(isInt(lex))
-				return (new Token(1, "NUM_INT", lex, l, c));
-			
-			else if (isFloat(lex))
+			if(lex.contains("."))
 				return (new Token(2, "NUM_FLOAT", lex, l, c));
+				
+			
+			else if (!lex.contains("."))
+				return (new Token(1, "NUM_INT", lex, l, c));
 			
 			else
 				return null;

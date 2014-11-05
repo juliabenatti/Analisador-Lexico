@@ -163,7 +163,7 @@ public class AnLexico {
 						break;
 					}
 					// Verifica se /n e ignora
-					if (caracter == Character.LINE_SEPARATOR) {
+					if (caracter == Character.LINE_SEPARATOR || caracter == '\n' ) {
 						caracter = leitorArquivo.getNextChar();
 						break;
 					}
@@ -182,137 +182,55 @@ public class AnLexico {
 					// dele é válida e retorna o token (float e int)
 					if (Character.isDigit(caracter)) {
 						int indicePonto = 0, indiceE = 0;
+						boolean primeiroLooping = true;
+						
 						// Enquando não sair do padrão de número, . (somente uma
 						// ocorrencia) e E (somente uma ocorrencia)
-						while (Character.isDigit(caracter)) {
-							lexema.append(caracter);
-							caracter = leitorArquivo.getNextChar();
-						}
-						if (caracter != 'E' && caracter != '.')
-							return (new Token(1, "NUM_INT",
-									String.valueOf(lexema),
-									leitorArquivo.getLine(),
-									leitorArquivo.getColumn()));
-
-						else if (caracter == '.') {
-							caracter = leitorArquivo.getNextChar();
-							if (Character.isDigit(caracter)) {
-								lexema.append("." + caracter);
+						while ((Character.isDigit(caracter) || caracter == 'E' || caracter == '+' || caracter == '.')) {
+							if (primeiroLooping){
+								primeiroLooping = false;
+								lexema.append(caracter);
 								caracter = leitorArquivo.getNextChar();
-								while (Character.isDigit(caracter))
-									lexema.append(caracter);
-								if (caracter == 'E') {
-									caracter = leitorArquivo.getNextChar();
-									if (caracter == '+') {
-										caracter = leitorArquivo.getNextChar();
-										lexema.append("E+" + caracter);
-																				
-											while (Character.isDigit(caracter))
-												lexema.append(caracter);
-											return (new Token(1, "NUM_FLOAT",
-													String.valueOf(lexema),
-													leitorArquivo.getLine(),
-													leitorArquivo.getColumn()));
-										
-									}else{
-										leitorArquivo.resetLastChar();
-										leitorArquivo.resetLastChar();
-										return (new Token(1, "NUM_FLOAT", String.valueOf(lexema), leitorArquivo.getLine(), leitorArquivo.getColumn()));
-									}
-
-								}else{
-									return (new Token(1, "NUM_FLOAT", String.valueOf(lexema), leitorArquivo.getLine(), leitorArquivo.getColumn()));
-								}
-
-							}else{
-								leitorArquivo.resetLastChar();
-								return (new Token(1, "NUM_INT", String.valueOf(lexema), leitorArquivo.getLine(), leitorArquivo.getColumn()));
 							}
 								
-
+							if(Character.isDigit(caracter)&&lexema.charAt(lexema.length()-1)!= 'E'){
+								lexema.append(caracter);
+								caracter = leitorArquivo.getNextChar();
+							}
+							
+							else if(caracter == 'E' && indiceE == 0){
+								indiceE++;
+								caracter = leitorArquivo.getNextChar();
+								if(caracter == '+'){
+									lexema.append("E"+caracter);
+									caracter = leitorArquivo.getNextChar();
+									}else{
+									//devolve dos simbolos
+									leitorArquivo.reset();
+									leitorArquivo.reset();
+									return(tabSimbolos.retornaNumero(String.valueOf(lexema), leitorArquivo.getLine(), leitorArquivo.getColumn()));
+								}
+							}
+							
+							else if(caracter == '.' && indicePonto == 0){
+								indicePonto++;
+								caracter = leitorArquivo.getNextChar();
+								if (Character.isDigit(caracter)){
+									lexema.append("."+caracter);
+									caracter = leitorArquivo.getNextChar();
+								}else{
+									//devolve dos simbolos
+									leitorArquivo.reset();
+									leitorArquivo.reset();
+									return(tabSimbolos.retornaNumero(String.valueOf(lexema), leitorArquivo.getLine(), leitorArquivo.getColumn()));
+								}
+							}
+							else{
+								leitorArquivo.reset();
+								return(tabSimbolos.retornaNumero(String.valueOf(lexema), leitorArquivo.getLine(), leitorArquivo.getColumn()));
+							}
 						}
-						//trabalhar nisso
-						else if(caracter == 'E'){}
-
-//						while (Character.isDigit(caracter)
-//								|| (caracter == '.' && indicePonto <= 1)
-//								|| (caracter == 'E' && indiceE <= 1)) {
-//							lexema.append(caracter);
-//							if (caracter == 'E') {
-//								indiceE = exponencialEncontrado();
-//								if (indiceE == 0) // caso + não seja encontrado,
-//									// mantem somente os número
-//									// e retorna.
-//									return tabSimbolos.retornaNumero(
-//											String.valueOf(lexema),
-//											leitorArquivo.getLine(),
-//											leitorArquivo.getColumn());
-//								// E irá
-//								// para
-//								// erro
-//								// na próxima
-//								// execução
-//							}
-//							if (caracter == '.') {
-//								caracter = leitorArquivo.getNextChar();
-//								if (Character.isDigit(caracter)
-//										|| caracter == 'E') {
-//									// verifica se existe um E depois do .
-//									if (caracter == 'E') {
-//										caracter = leitorArquivo.getNextChar();
-//										if (caracter == '+') {
-//											lexema.append(".E");
-//											lexema.append(caracter);
-//											indiceE++;
-//										} else {
-//											caracter = 'E';
-//											return tabSimbolos.retornaNumero(
-//													String.valueOf(lexema),
-//													leitorArquivo.getLine(),
-//													leitorArquivo.getColumn());// E
-//											// irá
-//											// para
-//											// erro
-//											// na
-//											// próxima
-//											// execução
-//										}
-//									}
-//									// Somente adiciona o . no lexema
-//									else {
-//										lexema.append(".");
-//										lexema.append(caracter);
-//										indicePonto++;
-//									}
-//								}
-//								// Seta erro para ".", já que não existem
-//								// lexemas começados com ".".
-//								else {
-//									errorHandler
-//											.setError(leitorArquivo.getLine()
-//													+ ", "
-//													+ leitorArquivo.getColumn()
-//													+ " | O uso de . mais de uma vez para um número é inválido.");
-//									caracter = leitorArquivo.getNextChar();
-//									return tabSimbolos.retornaNumero(
-//											String.valueOf(lexema),
-//											leitorArquivo.getLine(),
-//											leitorArquivo.getColumn());// . irá
-//																		// para
-//																		// erro
-//									// na próxima
-//									// execução
-//								}
-//							}
-//							// Pede um novo caracter ao arquivo
-//							caracter = leitorArquivo.getNextChar();
-//						}
-//						return tabSimbolos.retornaNumero(
-//								String.valueOf(lexema),
-//								leitorArquivo.getLine(),
-//								leitorArquivo.getColumn());// retorna token e
-//															// finaliza a
-//						// execução do método
+					}
 					}
 
 					// ** Análise para letras (possíveis palavras reservadas
@@ -343,8 +261,7 @@ public class AnLexico {
 					break;
 
 				}
-			}
-
+			
 		} catch (EOFException eo) {
 			return new Token(1, "EOF", "EOF", leitorArquivo.getLine(),
 					leitorArquivo.getColumn());
@@ -354,7 +271,8 @@ public class AnLexico {
 			return new Token(1, "EOF", "EOF", leitorArquivo.getLine(),
 					leitorArquivo.getColumn());
 		} catch (Exception e) {
-			System.out.println("Não foi possível recuperar caracter.");
+			e.printStackTrace();
+			//System.out.println("Não foi possível recuperar caracter.");
 		}
 		return null; // caso nada seja encontrado.
 	}
