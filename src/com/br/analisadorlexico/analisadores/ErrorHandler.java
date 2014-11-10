@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
-import com.br.analisadorlexico.componentes.TabSimbolos;
+
 
 public class ErrorHandler {
 	private static ErrorHandler instancia = new ErrorHandler();
-	private List<String> erros = new ArrayList();
+	private List<String> erros = new ArrayList<String>();
 
 	public void setError(String erro) {
 		erros.add(erro);

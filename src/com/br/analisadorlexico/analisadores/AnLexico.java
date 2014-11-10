@@ -3,7 +3,7 @@ package com.br.analisadorlexico.analisadores;
 import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import com.br.analisadorlexico.componentes.TabSimbolos;
@@ -163,7 +163,8 @@ public class AnLexico {
 						break;
 					}
 					// Verifica se /n e ignora
-					if (caracter == Character.LINE_SEPARATOR || caracter == '\n' ) {
+					if (caracter == Character.LINE_SEPARATOR
+							|| caracter == '\n') {
 						caracter = leitorArquivo.getNextChar();
 						break;
 					}
@@ -183,54 +184,77 @@ public class AnLexico {
 					if (Character.isDigit(caracter)) {
 						int indicePonto = 0, indiceE = 0;
 						boolean primeiroLooping = true;
-						
+
 						// Enquando não sair do padrão de número, . (somente uma
 						// ocorrencia) e E (somente uma ocorrencia)
-						while ((Character.isDigit(caracter) || caracter == 'E' || caracter == '+' || caracter == '.')) {
-							if (primeiroLooping){
+						try{
+						while ((Character.isDigit(caracter) || caracter == 'E'
+								|| caracter == '+' || caracter == '.')) {
+							if (primeiroLooping) {
 								primeiroLooping = false;
+														
+										lexema.append(caracter);
+										caracter = leitorArquivo.getNextChar();
+														
+							}
+
+							if (Character.isDigit(caracter)
+									&& lexema.charAt(lexema.length() - 1) != 'E') {
 								lexema.append(caracter);
 								caracter = leitorArquivo.getNextChar();
 							}
-								
-							if(Character.isDigit(caracter)&&lexema.charAt(lexema.length()-1)!= 'E'){
-								lexema.append(caracter);
-								caracter = leitorArquivo.getNextChar();
-							}
-							
-							else if(caracter == 'E' && indiceE == 0){
+
+							else if (caracter == 'E' && indiceE == 0) {
 								indiceE++;
 								caracter = leitorArquivo.getNextChar();
-								if(caracter == '+'){
-									lexema.append("E"+caracter);
+								if (caracter == '+') {
+									lexema.append("E" + caracter);
 									caracter = leitorArquivo.getNextChar();
-									}else{
-									//devolve dos simbolos
+								} else {
+									// devolve dos simbolos
 									leitorArquivo.reset();
 									leitorArquivo.reset();
-									return(tabSimbolos.retornaNumero(String.valueOf(lexema), leitorArquivo.getLine(), leitorArquivo.getColumn()));
+									return (tabSimbolos.retornaNumero(
+											String.valueOf(lexema),
+											leitorArquivo.getLine(),
+											leitorArquivo.getColumn()));
 								}
 							}
-							
-							else if(caracter == '.' && indicePonto == 0){
+
+							else if (caracter == '.' && indicePonto == 0) {
 								indicePonto++;
 								caracter = leitorArquivo.getNextChar();
-								if (Character.isDigit(caracter)){
-									lexema.append("."+caracter);
+								if (Character.isDigit(caracter)) {
+									lexema.append("." + caracter);
 									caracter = leitorArquivo.getNextChar();
-								}else{
-									//devolve dos simbolos
+								} else {
+									// devolve dos simbolos
 									leitorArquivo.reset();
 									leitorArquivo.reset();
-									return(tabSimbolos.retornaNumero(String.valueOf(lexema), leitorArquivo.getLine(), leitorArquivo.getColumn()));
+									return (tabSimbolos.retornaNumero(
+											String.valueOf(lexema),
+											leitorArquivo.getLine(),
+											leitorArquivo.getColumn()));
 								}
-							}
-							else{
+							} else {
 								leitorArquivo.reset();
-								return(tabSimbolos.retornaNumero(String.valueOf(lexema), leitorArquivo.getLine(), leitorArquivo.getColumn()));
+								return (tabSimbolos.retornaNumero(
+										String.valueOf(lexema),
+										leitorArquivo.getLine(),
+										leitorArquivo.getColumn()));
 							}
 						}
-					}
+						return (tabSimbolos.retornaNumero(
+								String.valueOf(lexema),
+								leitorArquivo.getLine(),
+								leitorArquivo.getColumn()));
+						}catch(Exception e){
+							caracter =' ';
+							return (tabSimbolos.retornaNumero(
+									String.valueOf(lexema),
+									leitorArquivo.getLine(),
+									leitorArquivo.getColumn()));
+						}
 					}
 
 					// ** Análise para letras (possíveis palavras reservadas
@@ -257,11 +281,12 @@ public class AnLexico {
 								+ leitorArquivo.getColumn() + " | Caracter "
 								+ caracter + " não é válido. ");
 						caracter = leitorArquivo.getNextChar();
+						continue;
 					}
-					break;
+					
 
 				}
-			
+			}
 		} catch (EOFException eo) {
 			return new Token(1, "EOF", "EOF", leitorArquivo.getLine(),
 					leitorArquivo.getColumn());
@@ -271,8 +296,7 @@ public class AnLexico {
 			return new Token(1, "EOF", "EOF", leitorArquivo.getLine(),
 					leitorArquivo.getColumn());
 		} catch (Exception e) {
-			e.printStackTrace();
-			//System.out.println("Não foi possível recuperar caracter.");
+						 System.out.println("Não foi possível recuperar caracter.");
 		}
 		return null; // caso nada seja encontrado.
 	}

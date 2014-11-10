@@ -3,7 +3,6 @@ package com.br.analisadorlexico.analisadores;
 import java.util.List;
 import java.util.ArrayList;
 
-
 import com.br.analisadorlexico.componentes.TabSimbolos;
 import com.br.analisadorlexico.componentes.Token;
 
@@ -18,23 +17,26 @@ public class AnSintatico {
 
 		System.out.println("TOKENS ENCONTRADOS:");
 		System.out.println("ORDEM | TOKEN | LEXEMA | POSIÇÃO (lin, col)");
-
-		do {
-			tk = new Token();
-			tk = analisadorLexico.nextToken();
-			if (tk == null) {
-				// Não exibe nada
-			} else {
-				if(tk.getToken() != "EOF"){
-				listaTokens.add(tk);
-				System.out.println(contador + " | " + tk.getToken() + " | "
-						+ tk.getLexema() + " | "
-						+ (tk.getLinha() + ", " + tk.getColuna()));
+		try {
+			do {
+				tk = new Token();
+				tk = analisadorLexico.nextToken();
+				if (tk == null) {
+					// Não exibe nada
+				} else {
+					if (tk.getToken() != "EOF") {
+						listaTokens.add(tk);
+						System.out.println(contador + " | " + tk.getToken()
+								+ " | " + tk.getLexema() + " | "
+								+ (tk.getLinha() + ", " + tk.getColuna()));
+					}
 				}
-			}
-			contador++;
-		} while (tk.getToken() != "EOF");
-		System.out.println("");
+				contador++;
+			} while (!"EOF".equals(tk.getToken()));
+			System.out.println("");
+		} catch (Exception e) {
+
+		}
 
 		System.out.println("RELATÓRIO DE ERROS:");
 		System.out.println("POSIÇÃO (lin, col) | MENSAGEM ");
@@ -69,30 +71,82 @@ public class AnSintatico {
 		}
 
 	}
-	public void bloco(){};
-	public void cmds(){};
-	public void ifflw(){};
-	public void idflw(){};
-	public void dcflw(){};
-	public void cmd(){};
-	public void decl(){};
-	public void cond(){};
-	public void cndb(){};
-	public void atrib(){};
-	public void exp(){};
-	public void expl(){};
-	public void logflw(){};
-	public void genflw(){};
-	public void genflw1(){};
-	public void genflw2(){};
-	public void genflw3(){};
-	public void expr(){};
-	public void expn(){};
-	public void expn1(){};
-	public void termon(){};
-	public void termon1(){};
-	public void valn(){};
-	public void rep(){};
-	public void repf(){};
-	public void repw(){};
+
+	public void bloco() {
+	};
+
+	public void cmds() {
+	};
+
+	public void ifflw() {
+	};
+
+	public void idflw() {
+	};
+
+	public void dcflw() {
+	};
+
+	public void cmd() {
+	};
+
+	public void decl() {
+	};
+
+	public void cond() {
+	};
+
+	public void cndb() {
+	};
+
+	public void atrib() {
+	};
+
+	public void exp() {
+	};
+
+	public void expl() {
+	};
+
+	public void logflw() {
+	};
+
+	public void genflw() {
+	};
+
+	public void genflw1() {
+	};
+
+	public void genflw2() {
+	};
+
+	public void genflw3() {
+	};
+
+	public void expr() {
+	};
+
+	public void expn() {
+	};
+
+	public void expn1() {
+	};
+
+	public void termon() {
+	};
+
+	public void termon1() {
+	};
+
+	public void valn() {
+	};
+
+	public void rep() {
+	};
+
+	public void repf() {
+	};
+
+	public void repw() {
+	};
 }

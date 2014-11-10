@@ -1,6 +1,5 @@
 package com.br.analisadorlexico.componentes;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -152,59 +151,5 @@ public class TabSimbolos {
 			else
 				return null;
 		}
-	
-//	public Token pesquisaPalavra(String lex, long l, long c) {
-//		
-////		if (lex.charAt(0) == '\''){
-////			
-////			listaToken.get(2).setLexema(lex);
-////			listaToken.get(2).setLinha(l);
-////			listaToken.get(2).setColuna(c);
-////			return listaToken.get(2);
-////		}
-//		if (isInt(lex)){
-//			 // Retorna NUM_INT primeiro
-//			listaToken.get(0).setLexema(lex);
-//			listaToken.get(0).setLinha(l);
-//			listaToken.get(0).setColuna(c);
-//			return listaToken.get(0);
-//		}
-////			// Retornar NUM_FLOAT primeiro vai dar errado
-//		if (isFloat(lex)){
-//			 // Retorna NUM_FLOAT se for float
-//			listaToken.get(1).setLexema(lex);
-//			listaToken.get(1).setLinha(l);
-//			listaToken.get(1).setColuna(c);
-//			return listaToken.get(1);
-//		}
-//		for (Token ltoken : listaToken)
-//			// Pega token por token
-//			if (ltoken.getLexema().equals(lex.trim())) { // Verifica se o token existe
-//				ltoken.setLinha(l);
-//				ltoken.setColuna(c);
-//				return ltoken;
-//			} // Se existe, grava linha/coluna e retorna o token
-//		Token x = new Token(4, "ID", lex.trim(), l, c); // Se nao existe, considera que
-//													// eh ID
-//		listaToken.add(x);
-//		return x;
-//	}
-
-	public static boolean isInt(String texto) { // Verifica se é INT
-		try {
-			Integer.parseInt(texto);
-			return true;
-		} catch (NumberFormatException err) {
-			return false;
-		}
-	}
-
-	public static boolean isFloat(String texto) { // Verifica se e FLOAT
-		try {
-			Float.parseFloat(texto);
-			return true;
-		} catch (NumberFormatException err) {
-			return false;
-		}
-	}
+		
 }
