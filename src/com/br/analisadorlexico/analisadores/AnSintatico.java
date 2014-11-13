@@ -2,27 +2,25 @@ package com.br.analisadorlexico.analisadores;
 
 import java.util.List;
 import java.util.ArrayList;
-
 import com.br.analisadorlexico.componentes.TabSimbolos;
 import com.br.analisadorlexico.componentes.Token;
 
 public class AnSintatico {
 
 	public boolean analise(String caminho) {
-
 		AnLexico analisadorLexico = new AnLexico(caminho);
 		List<Token> listaTokens = new ArrayList<Token>();
 		Token tk;
 		int contador = 1;
 
 		System.out.println("TOKENS ENCONTRADOS:");
-		System.out.println("ORDEM | TOKEN | LEXEMA | POSIÇÃO (lin, col)");
+		System.out.println("ORDEM | TOKEN | LEXEMA | POSICAO (lin, col)");
 		try {
 			do {
 				tk = new Token();
 				tk = analisadorLexico.nextToken();
 				if (tk == null) {
-					// Não exibe nada
+					// NÃ£o exibe nada
 				} else {
 					if (tk.getToken() != "EOF") {
 						listaTokens.add(tk);
@@ -37,29 +35,28 @@ public class AnSintatico {
 		} catch (Exception e) {
 
 		}
-
-		System.out.println("RELATÓRIO DE ERROS:");
-		System.out.println("POSIÇÃO (lin, col) | MENSAGEM ");
-
-		for (String erro : analisadorLexico.retornarErros())
-			System.out.println(erro);
-
-		if (analisadorLexico.retornarErros().size() == 0)
-			System.out.println("Nenhum erro léxico foi encontrado.");
+		
+		if (analisadorLexico.retornarErros().size() == 0){
+			System.out.println("Nenhum erro lexico foi encontrado.");
+		}else{
+			System.out.println("RELATORIO DE ERROS:");
+			System.out.println("POSICAO (lin, col) | MENSAGEM ");
+			for (String erro : analisadorLexico.retornarErros())
+				System.out.println(erro);
+		}
 
 		System.out.println("");
-
-		System.out.println("ESTADO DA TABELA DE SÍMBOLOS:");
-		System.out
-				.println("ORDEM | TOKEN | LEXEMA | POSIÇÃO FINAL (lin, col) ");
+		System.out.println("ESTADO DA TABELA DE SIMBOLOS:");
+		System.out.println("ORDEM | TOKEN | LEXEMA | POSICAO FINAL (lin, col) ");
+		
 		TabSimbolos tS = TabSimbolos.getInstance();
-		int cont = 1;
+		contador = 1;
 
 		for (Token t : tS.getListaToken().values()) {
-			System.out.println(cont + " | " + t.getToken() + " | "
+			System.out.println(contador + " | " + t.getToken() + " | "
 					+ t.getLexema() + " | " + t.getLinha() + " | "
 					+ t.getColuna());
-			cont++;
+			contador++;
 		}
 
 		if (analisadorLexico.retornarErros().size() == 0)
@@ -69,7 +66,6 @@ public class AnSintatico {
 			eH.writeError();
 			return false;
 		}
-
 	}
 
 	public void bloco() {
