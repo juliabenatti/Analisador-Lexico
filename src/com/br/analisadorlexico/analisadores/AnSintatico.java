@@ -1,40 +1,15 @@
 package com.br.analisadorlexico.analisadores;
 
-import java.util.List;
-import java.util.ArrayList;
 import com.br.analisadorlexico.componentes.TabSimbolos;
 import com.br.analisadorlexico.componentes.Token;
 
 public class AnSintatico {
+	private AnLexico analisadorLexico;
 
 	public boolean analise(String caminho) {
-		AnLexico analisadorLexico = new AnLexico(caminho);
-		List<Token> listaTokens = new ArrayList<Token>();
-		Token tk;
-		int contador = 1;
+		analisadorLexico = new AnLexico(caminho);
 
-		System.out.println("TOKENS ENCONTRADOS:");
-		System.out.println("ORDEM | TOKEN | LEXEMA | POSICAO (lin, col)");
-		try {
-			do {
-				tk = new Token();
-				tk = analisadorLexico.nextToken();
-				if (tk == null) {
-					// NÃ£o exibe nada
-				} else {
-					if (tk.getToken() != "EOF") {
-						listaTokens.add(tk);
-						System.out.println(contador + " | " + tk.getToken()
-								+ " | " + tk.getLexema() + " | "
-								+ (tk.getLinha() + ", " + tk.getColuna()));
-					}
-				}
-				contador++;
-			} while (!"EOF".equals(tk.getToken()));
-			System.out.println("");
-		} catch (Exception e) {
-
-		}
+		procS();
 		
 		if (analisadorLexico.retornarErros().size() == 0){
 			System.out.println("Nenhum erro lexico foi encontrado.");
@@ -50,8 +25,7 @@ public class AnSintatico {
 		System.out.println("ORDEM | TOKEN | LEXEMA | POSICAO FINAL (lin, col) ");
 		
 		TabSimbolos tS = TabSimbolos.getInstance();
-		contador = 1;
-
+		int contador = 1;
 		for (Token t : tS.getListaToken().values()) {
 			System.out.println(contador + " | " + t.getToken() + " | "
 					+ t.getLexema() + " | " + t.getLinha() + " | "
@@ -65,6 +39,14 @@ public class AnSintatico {
 			ErrorHandler eH = ErrorHandler.getInstance();
 			eH.writeError();
 			return false;
+		}
+		
+	}
+	
+	private void procS(){
+		Token token = analisadorLexico.nextToken();
+		if(token.getToken() == "program"){
+			
 		}
 	}
 
