@@ -5,8 +5,6 @@ import java.util.Map;
 
 public class TabSimbolos {
 	private static TabSimbolos instancia = new TabSimbolos();
-	//private ArrayList<Token> listaToken = new ArrayList<Token>();
-	//private ArrayList<Codigo> listaCodigo = new ArrayList<Codigo>();
 	private Map <String, Token> tabelaSimbolos = new HashMap <String, Token>();
 	public Map<String, Token> getListaToken(){
 		return tabelaSimbolos;
@@ -126,11 +124,13 @@ public class TabSimbolos {
 	
 	public Token retornaSalvaPalavra(String lex, long l, long c){
 		Token token;
-		
 		if (tabelaSimbolos.containsKey(lex)){
 			token = tabelaSimbolos.get(lex);
-			token.setLinha(l);
-			token.setColuna(c);
+			String tipo = token.getToken().toLowerCase();
+			tabelaSimbolos.remove(lex);
+			token = new Token(2, tipo, lex, l, c);
+			tabelaSimbolos.put(tipo, token);
+			
 			return token;
 		}
 		else{
@@ -138,7 +138,7 @@ public class TabSimbolos {
 			tabelaSimbolos.put(lex.trim(), token);
 			return token;
 		}
-		}
+	}
 		
 		public Token retornaNumero(String lex, long l, long c){
 			if(lex.contains("."))
