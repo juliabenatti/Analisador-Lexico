@@ -79,18 +79,47 @@ public class AnSintatico {
 
 	public void atrib() {
 		Token token = analisadorLexico.nextToken();
-		if(token.getToken().equals("ID"))
+		if(token.getToken().equals("ID")){
+			token = analisadorLexico.nextToken();
 			if(token.getToken().equals("ATTRIB_OP")){
 				exp();
+				token = analisadorLexico.nextToken();
 				if(!token.getToken().equals("TERM"))
-					eH.setError("Faltou um ; no final da linha.");
+					eH.setError("Faltou um ; no final da linha."
+							,token.getLinha(),token.getColuna());
 			}else
-				eH.setError("Faltou um símbolo de atribuição da variável.");
-		else
-			eH.setError("Faltou um ; no final da linha.");
+				eH.setError("Faltou um símbolo de atribuição da variável."
+						,token.getLinha(),token.getColuna());
+		}else
+			eH.setError("Faltou um ; no final da linha."
+					,token.getLinha(),token.getColuna());
 	};
 
 	public void exp() {
+		Token token = analisadorLexico.nextToken();
+		switch(token.getToken()){
+			case "LOGIC_VAL":
+				logflw();//falta implementar
+				break;
+			case "ID":
+				genflw();//falta implementar
+				break;
+			case "NUM_INT":
+			case "NUM_FLOAT":
+				genflw1();//falta implementar
+				break;
+			case "L_PAR":
+				expn();//falta implementar
+				token = analisadorLexico.nextToken();
+				if(token.getToken().equals("R_PAR"))
+					genflw1();
+				break;
+			case "LITERAL":
+				break;
+			default:
+				eH.setError("ERRO: Era esperada alguma expressão "
+						,token.getLinha(),token.getColuna());
+		}
 	};
 
 	public void expl() {
