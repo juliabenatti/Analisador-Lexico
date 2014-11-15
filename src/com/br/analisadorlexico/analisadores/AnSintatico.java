@@ -78,6 +78,16 @@ public class AnSintatico {
 	};
 
 	public void atrib() {
+		Token token = analisadorLexico.nextToken();
+		if(token.getToken().equals("ID"))
+			if(token.getToken().equals("ATTRIB_OP")){
+				exp();
+				if(!token.getToken().equals("TERM"))
+					eH.setError("Faltou um ; no final da linha.");
+			}else
+				eH.setError("Faltou um símbolo de atribuição da variável.");
+		else
+			eH.setError("Faltou um ; no final da linha.");
 	};
 
 	public void exp() {
