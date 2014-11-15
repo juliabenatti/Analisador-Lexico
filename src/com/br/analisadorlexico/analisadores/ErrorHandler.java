@@ -13,6 +13,9 @@ public class ErrorHandler {
 	public void setError(String erro) {
 		erros.add(erro);
 	}
+	public void setError(String erro, long l, long c) {
+		erros.add("Linha "+l+" Coluna "+c+" "+erro);
+	}
 	public List <String> getError() {
 		return erros;
 	}
@@ -28,7 +31,7 @@ public class ErrorHandler {
 			}
 			arquivo.close();
 		} catch (Exception e) {
-			System.out.println("Arquivo n„o encontrado.");
+			System.out.println("Arquivo n√£o encontrado.");
 		}
 	}
 
