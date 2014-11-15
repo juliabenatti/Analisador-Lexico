@@ -124,12 +124,12 @@ public class TabSimbolos {
 	
 	public Token retornaSalvaPalavra(String lex, long l, long c){
 		Token token;
-		if (tabelaSimbolos.containsKey(lex)){
+		if (tabelaSimbolos.containsKey(lex.toLowerCase())){
 			token = tabelaSimbolos.get(lex);
-			String tipo = token.getToken().toLowerCase();
+			String tipo = token.getToken();
 			tabelaSimbolos.remove(lex);
 			token = new Token(2, tipo, lex, l, c);
-			tabelaSimbolos.put(tipo, token);
+			tabelaSimbolos.put(tipo.toLowerCase(), token);
 			
 			return token;
 		}
