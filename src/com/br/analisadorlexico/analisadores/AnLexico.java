@@ -3,33 +3,35 @@ package com.br.analisadorlexico.analisadores;
 import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import com.br.analisadorlexico.componentes.TabSimbolos;
 import com.br.analisadorlexico.componentes.Token;
-import com.br.analisadorlexico.leitorarquivo.FileHandler;
+import com.br.analisadorlexico.utils.FileHandler;
 
 public class AnLexico {
 
 	private StringBuilder lexema = new StringBuilder();
 	private char caracter;
-	// private ArrayList<Character> caractersPendentes = new ArrayList();
+	private List<Token> caractersPendentes = new ArrayList<Token>();
 	private boolean primeiroCaracter = true;
 	private FileHandler leitorArquivo;
 	private TabSimbolos tabSimbolos = TabSimbolos.getInstance();
 	private ErrorHandler errorHandler = ErrorHandler.getInstance();
-	// private Token token = new Token();
-	public static String caminhoArquivo;
+	public  static String caminhoArquivo;
 
 	public Token nextToken() {
-
 		try {
-
+			if(caractersPendentes.size()>0){
+				Token token = caractersPendentes.get(caractersPendentes.size()-1);
+				caractersPendentes.remove(caractersPendentes.size()-1);
+				return token;
+			}
 			if (primeiroCaracter) {
 				primeiroCaracter = false;
 				// Chama, da classe do professor, a leitura do arquivo, passando
-				// como parâmetro o caminho
+				// como parÃ¢metro o caminho
 				caracter = leitorArquivo.getNextChar();
 			}
 
@@ -39,7 +41,7 @@ public class AnLexico {
 
 				switch (caracter) {
 
-				// Verifique se o caracter (que é único) é válido
+				// Verifique se o caracter (que Ã© Ãºnico) Ã© vÃ¡lido
 
 				case '+':
 				case '-':
@@ -64,7 +66,7 @@ public class AnLexico {
 							String.valueOf(caracter), leitorArquivo.getLine(),
 							leitorArquivo.getColumn());
 
-					// Verifica _ se é seguido pelos valores aceitos na
+					// Verifica _ se Ã© seguido pelos valores aceitos na
 					// linguagem
 				case '_':
 					lexema.append(caracter);
@@ -79,7 +81,7 @@ public class AnLexico {
 							String.valueOf(lexema), leitorArquivo.getLine(),
 							leitorArquivo.getColumn());
 
-					// Verifica aspas simples, se é seguido pelos valores
+					// Verifica aspas simples, se Ã© seguido pelos valores
 					// aceitos na linguagem
 				case '\'':
 					lexema.append(caracter);
@@ -117,7 +119,7 @@ public class AnLexico {
 					caracter = leitorArquivo.getNextChar();
 					break;
 
-				// Verificação para operadores
+				// VerificaÃ§Ã£o para operadores
 				case '&':
 					lexema.append(caracter);
 					caracter = leitorArquivo.getNextChar();
@@ -132,7 +134,7 @@ public class AnLexico {
 					}
 					caracter = leitorArquivo.getNextChar();
 					String lexAnalise = lexema.toString().trim();
-					// teste para os lexemas válidos. Caso não seja
+					// teste para os lexemas vÃ¡lidos. Caso nÃ£o seja
 
 					if (lexAnalise.equals("&<&") || lexAnalise.equals("&>&")
 							|| lexAnalise.equals("&>=&")
@@ -147,17 +149,18 @@ public class AnLexico {
 					else {
 						errorHandler.setError(leitorArquivo.getLine() + ", "
 								+ leitorArquivo.getColumn() + " | Operador "
-								+ lexema + " não é válido.");
+								+ lexema + " nÃ£o Ã© vÃ¡lido.");
 					}
 					break; // em caso de erro, realiza a leitura do caracter
-							// novamente, para ver se não pertence à outro
-							// padrão
+							// novamente, para ver se nÃ£o pertence Ã  outro
+							// padrÃ£o
 
-				// ** CASO NÃO SEJA SOMENTE UM SÍMBOLO E SIM UM CONJUNTO **//
+				// ** CASO NÃƒO SEJA SOMENTE UM SÃ�MBOLO E SIM UM CONJUNTO **//
 				default:
 
-					// Verifica se é espaço em branco e ignora, continuando para
-					// a próxima interação do while (checar um novo caracter)
+					// Verifica se Ã© espaÃ§o em branco e ignora, continuando
+					// para
+					// a prÃ³xima interaÃ§Ã£o do while (checar um novo caracter)
 					if (Character.isWhitespace(caracter)) {
 						caracter = leitorArquivo.getNextChar();
 						break;
@@ -169,8 +172,8 @@ public class AnLexico {
 						break;
 					}
 
-					// Verifica se é comentário e ignora, continuando para a
-					// próxima interação do while (checar um novo caracter)
+					// Verifica se Ã© comentÃ¡rio e ignora, continuando para a
+					// prÃ³xima interaÃ§Ã£o do while (checar um novo caracter)
 					if (caracter == '#') {
 						caracter = leitorArquivo.getNextChar();
 						continueLeituraComentario();
@@ -178,41 +181,67 @@ public class AnLexico {
 						continue;
 					}
 
-					// ** Análise para números (inteiros ou decimais)
-					// Verifica se é um número e faz a análise se a continuação
-					// dele é válida e retorna o token (float e int)
+					// ** AnÃ¡lise para nÃºmeros (inteiros ou decimais)
+					// Verifica se Ã© um nÃºmero e faz a anÃ¡lise se a
+					// continuaÃ§Ã£o
+					// dele Ã© vÃ¡lida e retorna o token (float e int)
 					if (Character.isDigit(caracter)) {
 						int indicePonto = 0, indiceE = 0;
 						boolean primeiroLooping = true;
 
-						// Enquando não sair do padrão de número, . (somente uma
+						// Enquando nÃ£o sair do padrÃ£o de nÃºmero, . (somente
+						// uma
 						// ocorrencia) e E (somente uma ocorrencia)
-						try{
-						while ((Character.isDigit(caracter) || caracter == 'E'
-								|| caracter == '+' || caracter == '.')) {
-							if (primeiroLooping) {
-								primeiroLooping = false;
-														
-										lexema.append(caracter);
+						try {
+							while ((Character.isDigit(caracter)
+									|| caracter == 'E' || caracter == '+' || caracter == '.')) {
+								if (primeiroLooping) {
+									primeiroLooping = false;
+
+									lexema.append(caracter);
+									caracter = leitorArquivo.getNextChar();
+
+								}
+
+								if (Character.isDigit(caracter)
+										&& lexema.charAt(lexema.length() - 1) != 'E') {
+									lexema.append(caracter);
+									caracter = leitorArquivo.getNextChar();
+								}
+
+								else if (caracter == 'E' && indiceE == 0) {
+									indiceE++;
+									caracter = leitorArquivo.getNextChar();
+									if (caracter == '+') {
+										lexema.append("E" + caracter);
 										caracter = leitorArquivo.getNextChar();
-														
-							}
+									} else {
+										// devolve dos simbolos
+										leitorArquivo.reset();
+										leitorArquivo.reset();
+										return (tabSimbolos.retornaNumero(
+												String.valueOf(lexema),
+												leitorArquivo.getLine(),
+												leitorArquivo.getColumn()));
+									}
+								}
 
-							if (Character.isDigit(caracter)
-									&& lexema.charAt(lexema.length() - 1) != 'E') {
-								lexema.append(caracter);
-								caracter = leitorArquivo.getNextChar();
-							}
-
-							else if (caracter == 'E' && indiceE == 0) {
-								indiceE++;
-								caracter = leitorArquivo.getNextChar();
-								if (caracter == '+') {
-									lexema.append("E" + caracter);
+								else if (caracter == '.' && indicePonto == 0) {
+									indicePonto++;
 									caracter = leitorArquivo.getNextChar();
+									if (Character.isDigit(caracter)) {
+										lexema.append("." + caracter);
+										caracter = leitorArquivo.getNextChar();
+									} else {
+										// devolve dos simbolos
+										leitorArquivo.reset();
+										leitorArquivo.reset();
+										return (tabSimbolos.retornaNumero(
+												String.valueOf(lexema),
+												leitorArquivo.getLine(),
+												leitorArquivo.getColumn()));
+									}
 								} else {
-									// devolve dos simbolos
-									leitorArquivo.reset();
 									leitorArquivo.reset();
 									return (tabSimbolos.retornaNumero(
 											String.valueOf(lexema),
@@ -220,36 +249,12 @@ public class AnLexico {
 											leitorArquivo.getColumn()));
 								}
 							}
-
-							else if (caracter == '.' && indicePonto == 0) {
-								indicePonto++;
-								caracter = leitorArquivo.getNextChar();
-								if (Character.isDigit(caracter)) {
-									lexema.append("." + caracter);
-									caracter = leitorArquivo.getNextChar();
-								} else {
-									// devolve dos simbolos
-									leitorArquivo.reset();
-									leitorArquivo.reset();
-									return (tabSimbolos.retornaNumero(
-											String.valueOf(lexema),
-											leitorArquivo.getLine(),
-											leitorArquivo.getColumn()));
-								}
-							} else {
-								leitorArquivo.reset();
-								return (tabSimbolos.retornaNumero(
-										String.valueOf(lexema),
-										leitorArquivo.getLine(),
-										leitorArquivo.getColumn()));
-							}
-						}
-						return (tabSimbolos.retornaNumero(
-								String.valueOf(lexema),
-								leitorArquivo.getLine(),
-								leitorArquivo.getColumn()));
-						}catch(Exception e){
-							caracter =' ';
+							return (tabSimbolos.retornaNumero(
+									String.valueOf(lexema),
+									leitorArquivo.getLine(),
+									leitorArquivo.getColumn()));
+						} catch (Exception e) {
+							caracter = ' ';
 							return (tabSimbolos.retornaNumero(
 									String.valueOf(lexema),
 									leitorArquivo.getLine(),
@@ -257,7 +262,7 @@ public class AnLexico {
 						}
 					}
 
-					// ** Análise para letras (possíveis palavras reservadas
+					// ** AnÃ¡lise para letras (possÃ­veis palavras reservadas
 					if (Character.isLetter(caracter)) {
 						lexema.append(caracter);
 						while (Character.isDigit(caracter)
@@ -275,15 +280,14 @@ public class AnLexico {
 								leitorArquivo.getColumn());
 					}
 
-					// Erros gerais não pegos anteriormente.
+					// Erros gerais nÃ£o pegos anteriormente.
 					else {
 						errorHandler.setError(leitorArquivo.getLine() + ", "
 								+ leitorArquivo.getColumn() + " | Caracter "
-								+ caracter + " não é válido. ");
+								+ caracter + " nÃ£o Ã© vÃ¡lido. ");
 						caracter = leitorArquivo.getNextChar();
 						continue;
 					}
-					
 
 				}
 			}
@@ -296,13 +300,13 @@ public class AnLexico {
 			return new Token(1, "EOF", "EOF", leitorArquivo.getLine(),
 					leitorArquivo.getColumn());
 		} catch (Exception e) {
-						 System.out.println("Não foi possível recuperar caracter.");
+			System.out.println("NÃ£o foi possÃ­vel recuperar caracter.");
 		}
 		return null; // caso nada seja encontrado.
 	}
 
 	public void continueLeituraComentario() throws EOFException, IOException {
-		// enquanto não encontrar o fim do comentário
+		// enquanto nÃ£o encontrar o fim do comentÃ¡rio
 		while (true) {
 
 			caracter = leitorArquivo.getNextChar();
@@ -311,6 +315,19 @@ public class AnLexico {
 				break;
 
 		}
+	}
+
+	public boolean verificaDeclaracaoId(Token token) {
+		if (tabSimbolos.getTabela().containsKey(token.getLexema())) {
+			return true;
+		} else {
+			errorHandler.setError("Variável não declarada na tabela: "
+					+ token.getLexema());
+			return false;
+		}
+	}
+	public void armazenaToken(Token token){
+		caractersPendentes.add(token);
 	}
 
 	public List<String> retornarErros() {
@@ -329,7 +346,7 @@ public class AnLexico {
 		} else
 			caracter = 'E';
 
-		return indiceE;// E deve pertencer à outra palavra
+		return indiceE;// E deve pertencer Ã  outra palavra
 	}
 
 	public AnLexico(String caminhoArquivo) {
@@ -337,7 +354,7 @@ public class AnLexico {
 			this.caminhoArquivo = caminhoArquivo;
 			leitorArquivo = new FileHandler(caminhoArquivo);
 		} catch (FileNotFoundException e) {
-			System.out.println("Arquivo não encontrado.");
+			System.out.println("Arquivo nÃ£o encontrado.");
 		}
 	}
 

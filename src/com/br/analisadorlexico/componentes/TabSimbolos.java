@@ -37,6 +37,9 @@ public class TabSimbolos {
 	public static TabSimbolos getInstance() {
 		return instancia;
 	}
+	public Map <String, Token> getTabela(){
+		return tabelaSimbolos;
+	}
 
 	public Token retornaOperadorRelacional(String lex, long l, long c){
 		

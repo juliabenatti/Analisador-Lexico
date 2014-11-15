@@ -31,7 +31,7 @@ public class ErrorHandler {
 			}
 			arquivo.close();
 		} catch (Exception e) {
-			System.out.println("Arquivo n√£o encontrado.");
+			System.out.println("Arquivo n„o encontrado.");
 		}
 	}
 
