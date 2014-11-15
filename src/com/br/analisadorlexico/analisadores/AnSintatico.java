@@ -126,10 +126,22 @@ public class AnSintatico {
 	};
 
 	public void logflw() {
-	};
+		Token token = analisadorLexico.nextToken();
+		if(token.getToken().equals("LOGIC_OP")){
+			expl();//falta implementar
+		}else{
+			analisadorLexico.armazenaToken(token);
+		}
+	}
 
 	public void genflw() {
-	};
+		Token token = analisadorLexico.nextToken();
+		if(token.getToken().equals("LOGIC_OP")){
+			expl();//falta implementar
+		}else{
+			genflw1();//falta implementar
+		}
+	}
 
 	public void genflw1() {
 	};
