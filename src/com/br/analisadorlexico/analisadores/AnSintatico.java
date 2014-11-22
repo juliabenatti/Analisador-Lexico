@@ -333,7 +333,6 @@ public class AnSintatico {
 		Token token = analisadorLexico.nextToken();
 		if ("ID".equals(token.getToken())) {
 			Token id = token;
-			analisadorLexico.verificaDeclaracaoId(token);
 			token = analisadorLexico.nextToken();
 			if ("TYPE".equals(token.getToken())) {
 				token = analisadorLexico.nextToken();
@@ -382,7 +381,6 @@ public class AnSintatico {
 		boolean erro = false;
 		if ("DECLARE".equals(token.getToken())) {
 			token = analisadorLexico.nextToken();
-			//verifica se ID existe
 			if ("ID".equals(token.getToken())) {
 				Token id = token;
 				token = analisadorLexico.nextToken();
