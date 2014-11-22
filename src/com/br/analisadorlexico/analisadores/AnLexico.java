@@ -20,7 +20,6 @@ public class AnLexico {
 	private TabSimbolos tabSimbolos = TabSimbolos.getInstance();
 	private ErrorHandler errorHandler = ErrorHandler.getInstance();
 	public  static String caminhoArquivo;
-	private List<Token> idsDeclarados = new ArrayList<Token>();
 
 	public Token nextToken() {
 		try {
@@ -317,17 +316,15 @@ public class AnLexico {
 
 		}
 	}
+
 	public boolean verificaDeclaracaoId(Token token) {
-		if (idsDeclarados.contains(token))
+		if (tabSimbolos.getTabela().containsKey(token.getLexema())) {
 			return true;
-		else {
-			errorHandler.setError("Variavel nao declarada no codigo: "
+		} else {
+			errorHandler.setError("Variável não declarada na tabela: "
 					+ token.getLexema());
 			return false;
 		}
-	}
-	public void addIdDeclarado(Token token) {
-		idsDeclarados.add(token);
 	}
 	public void armazenaToken(Token token){
 		caractersPendentes.add(token);
