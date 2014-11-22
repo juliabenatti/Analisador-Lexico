@@ -331,6 +331,7 @@ public class AnSintatico {
 
 	public void dcflw() {
 		Token token = analisadorLexico.nextToken();
+		boolean erro = false;
 		if ("ID".equals(token.getToken())) {
 			Token id = token;
 			token = analisadorLexico.nextToken();
@@ -340,7 +341,24 @@ public class AnSintatico {
 					analisadorLexico.addIdDeclarado(id);
 					cmds();
 				}
+				else{
+					eH.setError("Token 'term' era esperado. Verifique a ortografia");
+					erro = true;
+				}
+			}else{
+				eH.setError("Token 'type' era esperado. Verifique a ortografia");
+				erro = true;
 			}
+		}
+		else{
+			eH.setError("Token 'id' era esperado. Verifique a ortografia");
+			erro = true;
+		}
+		
+		if (erro){
+			while (!("END".equals(token.getToken())))
+				token = analisadorLexico.nextToken();
+			analisadorLexico.armazenaToken(token);
 		}
 	};
 
