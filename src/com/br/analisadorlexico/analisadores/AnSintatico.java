@@ -353,26 +353,29 @@ public class AnSintatico {
 		}else
 			eH.setError("Faltou um ; no final da linha."
 					,token.getLinha(),token.getColuna());
-	};
+	}
 
 	public void exp() {
 		Token token = analisadorLexico.nextToken();
 		switch(token.getToken()){
 			case "LOGIC_VAL":
-				logflw();//falta implementar
+				logflw();
 				break;
 			case "ID":
-				genflw();//falta implementar
+				genflw();
 				break;
 			case "NUM_INT":
 			case "NUM_FLOAT":
-				genflw1();//falta implementar
+				genflw1();
 				break;
 			case "L_PAR":
-				expn();//falta implementar
+				expn();
 				token = analisadorLexico.nextToken();
 				if(token.getToken().equals("R_PAR"))
 					genflw1();
+				else
+					eH.setError("ERRO: Era esperado um ) "
+							,token.getLinha(),token.getColuna());
 				break;
 			case "LITERAL":
 				break;
@@ -380,62 +383,93 @@ public class AnSintatico {
 				eH.setError("ERRO: Era esperada alguma expressão "
 						,token.getLinha(),token.getColuna());
 		}
-	};
+	}
 
 	public void expl() {
-	};
+		Token token = analisadorLexico.nextToken();
+		
+		switch(token.getToken()){
+			case "LOGIC_VAL":
+				logflw();
+				break;
+			case "ID":
+				genflw();
+				break;
+			case "NUM_INT":
+			case "NUM_FLOAT":
+				genflw1();
+				break;
+			case "L_PAR":
+				expn();
+				token = analisadorLexico.nextToken();
+				if(token.getToken().equals("R_PAR"))
+					genflw1();
+				else
+					eH.setError("ERRO: Era esperado um ) "
+							,token.getLinha(),token.getColuna());
+				break;
+			default:
+				eH.setError("ERRO: Era esperada alguma expressão "
+						,token.getLinha(),token.getColuna());
+		}
+	}
 
 	public void logflw() {
 		Token token = analisadorLexico.nextToken();
 		if(token.getToken().equals("LOGIC_OP")){
-			expl();//falta implementar
+			expl();
 		}else{
-			analisadorLexico.armazenaToken(token);
+			//analisadorLexico.armazenaToken(token);
 		}
 	}
 
 	public void genflw() {
 		Token token = analisadorLexico.nextToken();
 		if(token.getToken().equals("LOGIC_OP")){
-			expl();//falta implementar
+			expl();
 		}else{
-			genflw1();//falta implementar
+			genflw1();
 		}
 	}
 
 	public void genflw1() {
-	};
+		termon1();//falta implementar
+		expn1();//falta implementar
+		genflw2();//falta implementar
+	}
 
 	public void genflw2() {
-	};
+	}
 
 	public void genflw3() {
-	};
+	}
 
 	public void expr() {
-	};
+	}
 
 	public void expn() {
-	};
+		termon();//falta implementar
+		expn1();//falta implementar
+	}
 
 	public void expn1() {
-	};
+	}
 
 	public void termon() {
-	};
-
+		
+	}
 	public void termon1() {
-	};
+	}
 
 	public void valn() {
-	};
+	}
 
 	public void rep() {
-	};
+	}
 
 	public void repf() {
-	};
+	}
 
 	public void repw() {
-	};
+	}
 }
