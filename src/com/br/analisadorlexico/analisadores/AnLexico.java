@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.br.analisadorlexico.componentes.TabSimbolos;
 import com.br.analisadorlexico.componentes.Token;
-import com.br.analisadorlexico.utils.FileHandler;
+import com.br.analisadorlexico.leitorarquivo.FileHandler;
 
 public class AnLexico {
 
@@ -20,7 +20,7 @@ public class AnLexico {
 	private TabSimbolos tabSimbolos = TabSimbolos.getInstance();
 	private ErrorHandler errorHandler = ErrorHandler.getInstance();
 	public  static String caminhoArquivo;
-	private List<Token> idsDeclarados = new ArrayList<Token>();
+	private List<String> idsDeclarados = new ArrayList<String>();
 
 	public Token nextToken() {
 		try {
@@ -32,7 +32,7 @@ public class AnLexico {
 			if (primeiroCaracter) {
 				primeiroCaracter = false;
 				// Chama, da classe do professor, a leitura do arquivo, passando
-				// como parÃ¢metro o caminho
+				// como parÃƒÂ¢metro o caminho
 				caracter = leitorArquivo.getNextChar();
 			}
 
@@ -42,7 +42,7 @@ public class AnLexico {
 
 				switch (caracter) {
 
-				// Verifique se o caracter (que Ã© Ãºnico) Ã© vÃ¡lido
+				// Verifique se o caracter (que ÃƒÂ© ÃƒÂºnico) ÃƒÂ© vÃƒÂ¡lido
 
 				case '+':
 				case '-':
@@ -67,7 +67,7 @@ public class AnLexico {
 							String.valueOf(caracter), leitorArquivo.getLine(),
 							leitorArquivo.getColumn());
 
-					// Verifica _ se Ã© seguido pelos valores aceitos na
+					// Verifica _ se ÃƒÂ© seguido pelos valores aceitos na
 					// linguagem
 				case '_':
 					lexema.append(caracter);
@@ -82,7 +82,7 @@ public class AnLexico {
 							String.valueOf(lexema), leitorArquivo.getLine(),
 							leitorArquivo.getColumn());
 
-					// Verifica aspas simples, se Ã© seguido pelos valores
+					// Verifica aspas simples, se ÃƒÂ© seguido pelos valores
 					// aceitos na linguagem
 				case '\'':
 					lexema.append(caracter);
@@ -120,7 +120,7 @@ public class AnLexico {
 					caracter = leitorArquivo.getNextChar();
 					break;
 
-				// VerificaÃ§Ã£o para operadores
+				// VerificaÃƒÂ§ÃƒÂ£o para operadores
 				case '&':
 					lexema.append(caracter);
 					caracter = leitorArquivo.getNextChar();
@@ -135,7 +135,7 @@ public class AnLexico {
 					}
 					caracter = leitorArquivo.getNextChar();
 					String lexAnalise = lexema.toString().trim();
-					// teste para os lexemas vÃ¡lidos. Caso nÃ£o seja
+					// teste para os lexemas vÃƒÂ¡lidos. Caso nÃƒÂ£o seja
 
 					if (lexAnalise.equals("&<&") || lexAnalise.equals("&>&")
 							|| lexAnalise.equals("&>=&")
@@ -150,18 +150,18 @@ public class AnLexico {
 					else {
 						errorHandler.setError(leitorArquivo.getLine() + ", "
 								+ leitorArquivo.getColumn() + " | Operador "
-								+ lexema + " nÃ£o Ã© vÃ¡lido.");
+								+ lexema + " nÃƒÂ£o ÃƒÂ© vÃƒÂ¡lido.");
 					}
 					break; // em caso de erro, realiza a leitura do caracter
-							// novamente, para ver se nÃ£o pertence Ã  outro
-							// padrÃ£o
+							// novamente, para ver se nÃƒÂ£o pertence ÃƒÂ  outro
+							// padrÃƒÂ£o
 
-				// ** CASO NÃƒO SEJA SOMENTE UM SÃ�MBOLO E SIM UM CONJUNTO **//
+				// ** CASO NÃƒÆ’O SEJA SOMENTE UM SÃƒï¿½MBOLO E SIM UM CONJUNTO **//
 				default:
 
-					// Verifica se Ã© espaÃ§o em branco e ignora, continuando
+					// Verifica se ÃƒÂ© espaÃƒÂ§o em branco e ignora, continuando
 					// para
-					// a prÃ³xima interaÃ§Ã£o do while (checar um novo caracter)
+					// a prÃƒÂ³xima interaÃƒÂ§ÃƒÂ£o do while (checar um novo caracter)
 					if (Character.isWhitespace(caracter)) {
 						caracter = leitorArquivo.getNextChar();
 						break;
@@ -173,8 +173,8 @@ public class AnLexico {
 						break;
 					}
 
-					// Verifica se Ã© comentÃ¡rio e ignora, continuando para a
-					// prÃ³xima interaÃ§Ã£o do while (checar um novo caracter)
+					// Verifica se ÃƒÂ© comentÃƒÂ¡rio e ignora, continuando para a
+					// prÃƒÂ³xima interaÃƒÂ§ÃƒÂ£o do while (checar um novo caracter)
 					if (caracter == '#') {
 						caracter = leitorArquivo.getNextChar();
 						continueLeituraComentario();
@@ -182,15 +182,15 @@ public class AnLexico {
 						continue;
 					}
 
-					// ** AnÃ¡lise para nÃºmeros (inteiros ou decimais)
-					// Verifica se Ã© um nÃºmero e faz a anÃ¡lise se a
-					// continuaÃ§Ã£o
-					// dele Ã© vÃ¡lida e retorna o token (float e int)
+					// ** AnÃƒÂ¡lise para nÃƒÂºmeros (inteiros ou decimais)
+					// Verifica se ÃƒÂ© um nÃƒÂºmero e faz a anÃƒÂ¡lise se a
+					// continuaÃƒÂ§ÃƒÂ£o
+					// dele ÃƒÂ© vÃƒÂ¡lida e retorna o token (float e int)
 					if (Character.isDigit(caracter)) {
 						int indicePonto = 0, indiceE = 0;
 						boolean primeiroLooping = true;
 
-						// Enquando nÃ£o sair do padrÃ£o de nÃºmero, . (somente
+						// Enquando nÃƒÂ£o sair do padrÃƒÂ£o de nÃƒÂºmero, . (somente
 						// uma
 						// ocorrencia) e E (somente uma ocorrencia)
 						try {
@@ -263,7 +263,7 @@ public class AnLexico {
 						}
 					}
 
-					// ** AnÃ¡lise para letras (possÃ­veis palavras reservadas
+					// ** AnÃƒÂ¡lise para letras (possÃƒÂ­veis palavras reservadas
 					if (Character.isLetter(caracter)) {
 						lexema.append(caracter);
 						while (Character.isDigit(caracter)
@@ -281,11 +281,11 @@ public class AnLexico {
 								leitorArquivo.getColumn());
 					}
 
-					// Erros gerais nÃ£o pegos anteriormente.
+					// Erros gerais nÃƒÂ£o pegos anteriormente.
 					else {
 						errorHandler.setError(leitorArquivo.getLine() + ", "
 								+ leitorArquivo.getColumn() + " | Caracter "
-								+ caracter + " nÃ£o Ã© vÃ¡lido. ");
+								+ caracter + " nÃƒÂ£o ÃƒÂ© vÃƒÂ¡lido. ");
 						caracter = leitorArquivo.getNextChar();
 						continue;
 					}
@@ -301,13 +301,13 @@ public class AnLexico {
 			return new Token(1, "EOF", "EOF", leitorArquivo.getLine(),
 					leitorArquivo.getColumn());
 		} catch (Exception e) {
-			System.out.println("NÃ£o foi possÃ­vel recuperar caracter.");
+			System.out.println("NÃƒÂ£o foi possÃƒÂ­vel recuperar caracter.");
 		}
 		return null; // caso nada seja encontrado.
 	}
 
 	public void continueLeituraComentario() throws EOFException, IOException {
-		// enquanto nÃ£o encontrar o fim do comentÃ¡rio
+		// enquanto nÃƒÂ£o encontrar o fim do comentÃƒÂ¡rio
 		while (true) {
 
 			caracter = leitorArquivo.getNextChar();
@@ -319,7 +319,7 @@ public class AnLexico {
 	}
 
 	public boolean verificaDeclaracaoId(Token token) {
-		if (idsDeclarados.contains(token))
+		if (idsDeclarados.contains(token.getLexema()))
 			return true;
 		 else {
 			 errorHandler.setError("Variavel nao declarada no codigo: "
@@ -329,7 +329,7 @@ public class AnLexico {
 	}
 	
 	public void addIdDeclarado(Token token) {
-				idsDeclarados.add(token);
+				idsDeclarados.add(token.getLexema());
 			}
 	
 	public void armazenaToken(Token token){
@@ -352,7 +352,7 @@ public class AnLexico {
 		} else
 			caracter = 'E';
 
-		return indiceE;// E deve pertencer Ã  outra palavra
+		return indiceE;// E deve pertencer ÃƒÂ  outra palavra
 	}
 
 	public AnLexico(String caminhoArquivo) {
@@ -360,7 +360,7 @@ public class AnLexico {
 			this.caminhoArquivo = caminhoArquivo;
 			leitorArquivo = new FileHandler(caminhoArquivo);
 		} catch (FileNotFoundException e) {
-			System.out.println("Arquivo nÃ£o encontrado.");
+			System.out.println("Arquivo nÃƒÂ£o encontrado.");
 		}
 	}
 
