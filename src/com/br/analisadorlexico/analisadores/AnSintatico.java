@@ -272,12 +272,12 @@ public class AnSintatico {
 	public void dcflw() {
 		Token token = analisadorLexico.nextToken();
 		if ("ID".equals(token.getToken())) {
-			//verifica se ID existe
-			analisadorLexico.verificaDeclaracaoId(token);
+			Token id = token;
 			token = analisadorLexico.nextToken();
 			if ("TYPE".equals(token.getToken())) {
 				token = analisadorLexico.nextToken();
 				if ("TERM".equals(token.getToken())) {
+					analisadorLexico.addIdDeclarado(id);
 					cmds();
 				}
 			}
@@ -293,14 +293,13 @@ public class AnSintatico {
 		Token token = analisadorLexico.nextToken();
 		if ("DECLARE".equals(token.getToken())) {
 			token = analisadorLexico.nextToken();
-			//verifica se ID existe
 			if ("ID".equals(token.getToken())) {
-				analisadorLexico.verificaDeclaracaoId(token);
+				Token id = token;
 				token = analisadorLexico.nextToken();
 				if ("TYPE".equals(token.getToken())) {
 					token = analisadorLexico.nextToken();
 					if ("TERM".equals(token.getToken())) {
-
+						analisadorLexico.addIdDeclarado(id);
 					}
 				}
 
