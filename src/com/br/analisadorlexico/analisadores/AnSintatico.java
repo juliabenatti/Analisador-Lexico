@@ -16,16 +16,16 @@ public class AnSintatico {
 		if (analisadorLexico.retornarErros().size() == 0) {
 			System.out.println("Nenhum erro lexico foi encontrado.");
 		} else {
-			System.out.println("RELATÓRIO DE ERROS:");
-			System.out.println("POSIÇÃO (lin, col) | MENSAGEM ");
+			System.out.println("RELATÃ“RIO DE ERROS:");
+			System.out.println("POSIÃ‡ÃƒO (lin, col) | MENSAGEM ");
 			for (String erro : analisadorLexico.retornarErros())
 				System.out.println(erro);
 		}
 
 		System.out.println("");
-		System.out.println("ESTADO DA TABELA DE SÍMBOLOS:");
+		System.out.println("ESTADO DA TABELA DE SÃ�MBOLOS:");
 		System.out
-				.println("ORDEM | TOKEN | LEXEMA | POSIÇÃO FINAL (lin, col) ");
+				.println("ORDEM | TOKEN | LEXEMA | POSIÃ‡ÃƒO FINAL (lin, col) ");
 
 		int contador = 1;
 		for (Token t : tS.getListaToken().values()) {
@@ -46,17 +46,17 @@ public class AnSintatico {
 
 	private void procS() {
 		Token token = analisadorLexico.nextToken();
-		//Caso começe com program
+		//Caso comeÃ§e com program
 		if ("PROGRAM".equals(token.getToken())) {
 			token = analisadorLexico.nextToken();
-			//Se próximo token for ID
+			//Se prÃ³ximo token for ID
 			if ("ID".equals(token.getToken())){
 				//verifica se ID existe
 				analisadorLexico.addIdDeclarado(token);
 				token = analisadorLexico.nextToken();
-				//Se próximo token for TERM
+				//Se prÃ³ximo token for TERM
 				if ("TERM".equals(token.getToken())) {
-					analisadorLexico.armazenaToken(token);
+					//analisadorLexico.armazenaToken(token);
 					bloco();
 					token = analisadorLexico.nextToken();
 					if ("END_PROG".equals(token.getToken())) {
@@ -88,7 +88,7 @@ public class AnSintatico {
 					}
 				}
 			}else{
-				//Caso não seja ID, vai para o próximo
+				//Caso nÃ£o seja ID, vai para o prÃ³ximo
 				token = analisadorLexico.nextToken();
 				if ("TERM".equals(token.getToken())) {
 					analisadorLexico.armazenaToken(token);
@@ -123,7 +123,7 @@ public class AnSintatico {
 					}
 				}
 			}
-//Caso não começe com 'program'
+//Caso nÃ£o comeÃ§e com 'program'
 		} else {
 			token = analisadorLexico.nextToken();
 			if ("ID".equals(token.getToken())) {
@@ -235,7 +235,7 @@ public class AnSintatico {
 			cmd();
 		
 		else{
-			eH.setError("Token "+ token.getLexema()+" não era esperado. Verifique a ortografia");
+			eH.setError("Token "+ token.getLexema()+" nÃ£o era esperado. Verifique a ortografia");
 			while(!("ID".equals(token.getToken()) || "END_PROG".equals(token.getToken()) || "END".equals(token.getToken())|| "DECLARE".equals(token.getToken())|| "IF".equals(token.getToken()) || "ELSE".equals(token.getToken())|| "FOR".equals(token.getToken()) || "WHILE".equals(token.getToken()))){
 				token = analisadorLexico.nextToken();
 			}
@@ -306,7 +306,7 @@ public class AnSintatico {
 	public void idflw() {
 		Token token = analisadorLexico.nextToken();
 		boolean erro = false;
-		if ("ATTRB_OP".equals(token.getToken())) {
+		if ("ATTRIB_OP".equals(token.getToken())) {
 			exp();
 			token = analisadorLexico.nextToken();
 			if ("TERM".equals(token.getToken())) 
@@ -315,8 +315,7 @@ public class AnSintatico {
 				eH.setError("Token 'term' era esperado. Verifique a ortografia");
 				erro = true;
 			}
-		}
-		else{
+		}else{
 			eH.setError("Token 'attrb_op' era esperado. Verifique a ortografia");
 			erro = true;
 		}
@@ -385,7 +384,7 @@ public class AnSintatico {
 				atrib();
 				break;
 			default:
-				eH.setError("Token "+token.getToken()+" não era esperado. Verifique a ortografia");
+				eH.setError("Token "+token.getToken()+" nÃ£o era esperado. Verifique a ortografia");
 				while (!("WHILE".equals(token.getToken())|| "ID".equals(token.getToken())|| "FOR".equals(token.getToken()) || "ELSE".equals(token.getToken()) || "END".equals(token.getToken()) || "END_PROG".equals(token.getToken())))
 					token = analisadorLexico.nextToken();
 				
@@ -481,9 +480,9 @@ public class AnSintatico {
 			analisadorLexico.armazenaToken(token);
 		}
 		else
-			eH.setError("Token "+token.getToken()+" não era esperado. Verifique a ortografia");
+			eH.setError("Token "+token.getToken()+" nÃ£o era esperado. Verifique a ortografia");
 	};
-// -- FIM MEUS MÉTODOS!
+// -- FIM MEUS MÃ‰TODOS!
 	public void atrib() {
 		Token token = analisadorLexico.nextToken();
 		if(token.getToken().equals("ID")){
@@ -495,7 +494,7 @@ public class AnSintatico {
 					eH.setError("Faltou um ; no final da linha."
 							,token.getLinha(),token.getColuna());
 			}else
-				eH.setError("Faltou um sÃ­mbolo de atribuiÃ§Ã£o da variÃ¡vel."
+				eH.setError("Faltou um sÃƒÂ­mbolo de atribuiÃƒÂ§ÃƒÂ£o da variÃƒÂ¡vel."
 						,token.getLinha(),token.getColuna());
 		}else
 			eH.setError("Faltou um ; no final da linha."
@@ -527,7 +526,7 @@ public class AnSintatico {
 			case "LITERAL":
 				break;
 			default:
-				eH.setError("ERRO: Era esperada alguma expressÃ£o "
+				eH.setError("ERRO: Era esperada alguma expressÃƒÂ£o "
 						,token.getLinha(),token.getColuna());
 		}
 	}
@@ -556,7 +555,7 @@ public class AnSintatico {
 							,token.getLinha(),token.getColuna());
 				break;
 			default:
-				eH.setError("ERRO: Era esperada alguma expressÃ£o "
+				eH.setError("ERRO: Era esperada alguma expressÃƒÂ£o "
 						,token.getLinha(),token.getColuna());
 		}
 	}
@@ -657,7 +656,7 @@ public class AnSintatico {
 						,token.getLinha(),token.getColuna());
 			break;
 		default:
-			eH.setError("ERRO: Era esperada algum número, ID ou expressao "
+			eH.setError("ERRO: Era esperada algum nÃºmero, ID ou expressao "
 					,token.getLinha(),token.getColuna());
 			break;
 		}
