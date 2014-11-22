@@ -52,7 +52,7 @@ public class AnSintatico {
 			//Se próximo token for ID
 			if ("ID".equals(token.getToken())){
 				//verifica se ID existe
-				analisadorLexico.verificaDeclaracaoId(token);
+				analisadorLexico.addIdDeclarado(token);
 				token = analisadorLexico.nextToken();
 				//Se próximo token for TERM
 				if ("TERM".equals(token.getToken())) {
