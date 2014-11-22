@@ -332,12 +332,13 @@ public class AnSintatico {
 	public void dcflw() {
 		Token token = analisadorLexico.nextToken();
 		if ("ID".equals(token.getToken())) {
-			//verifica se ID existe
+			Token id = token;
 			analisadorLexico.verificaDeclaracaoId(token);
 			token = analisadorLexico.nextToken();
 			if ("TYPE".equals(token.getToken())) {
 				token = analisadorLexico.nextToken();
 				if ("TERM".equals(token.getToken())) {
+					analisadorLexico.addIdDeclarado(id);
 					cmds();
 				}
 			}
@@ -383,11 +384,14 @@ public class AnSintatico {
 			token = analisadorLexico.nextToken();
 			//verifica se ID existe
 			if ("ID".equals(token.getToken())) {
-				analisadorLexico.verificaDeclaracaoId(token);
+				Token id = token;
 				token = analisadorLexico.nextToken();
 				if ("TYPE".equals(token.getToken())) {
 					token = analisadorLexico.nextToken();
-					if (!"TERM".equals(token.getToken())) {
+					if ("TERM".equals(token.getToken())) 
+						analisadorLexico.addIdDeclarado(id);
+						
+					else{
 						eH.setError("Token 'term' era esperado. Verifique a ortografia");
 						erro = true;
 					}
@@ -475,94 +479,224 @@ public class AnSintatico {
 					eH.setError("Faltou um ; no final da linha."
 							,token.getLinha(),token.getColuna());
 			}else
-				eH.setError("Faltou um símbolo de atribuição da variável."
+				eH.setError("Faltou um sÃ­mbolo de atribuiÃ§Ã£o da variÃ¡vel."
 						,token.getLinha(),token.getColuna());
 		}else
 			eH.setError("Faltou um ; no final da linha."
 					,token.getLinha(),token.getColuna());
-	};
+	}
 
 	public void exp() {
 		Token token = analisadorLexico.nextToken();
 		switch(token.getToken()){
 			case "LOGIC_VAL":
-				logflw();//falta implementar
+				logflw();
 				break;
 			case "ID":
-				genflw();//falta implementar
+				genflw();
 				break;
 			case "NUM_INT":
 			case "NUM_FLOAT":
-				genflw1();//falta implementar
+				genflw1();
 				break;
 			case "L_PAR":
-				expn();//falta implementar
+				expn();
 				token = analisadorLexico.nextToken();
 				if(token.getToken().equals("R_PAR"))
 					genflw1();
+				else
+					eH.setError("ERRO: Era esperado um ) "
+							,token.getLinha(),token.getColuna());
 				break;
 			case "LITERAL":
 				break;
 			default:
-				eH.setError("ERRO: Era esperada alguma expressão "
+				eH.setError("ERRO: Era esperada alguma expressÃ£o "
 						,token.getLinha(),token.getColuna());
 		}
-	};
+	}
 
 	public void expl() {
-	};
+		Token token = analisadorLexico.nextToken();
+		
+		switch(token.getToken()){
+			case "LOGIC_VAL":
+				logflw();
+				break;
+			case "ID":
+				genflw();
+				break;
+			case "NUM_INT":
+			case "NUM_FLOAT":
+				genflw1();
+				break;
+			case "L_PAR":
+				expn();
+				token = analisadorLexico.nextToken();
+				if(token.getToken().equals("R_PAR"))
+					genflw1();
+				else
+					eH.setError("ERRO: Era esperado um ) "
+							,token.getLinha(),token.getColuna());
+				break;
+			default:
+				eH.setError("ERRO: Era esperada alguma expressÃ£o "
+						,token.getLinha(),token.getColuna());
+		}
+	}
 
 	public void logflw() {
 		Token token = analisadorLexico.nextToken();
 		if(token.getToken().equals("LOGIC_OP")){
-			expl();//falta implementar
-		}else{
-			analisadorLexico.armazenaToken(token);
-		}
+			expl();
+		}else
+			analisadorLexico.armazenaToken(token); // quando pode ser vazio
 	}
 
 	public void genflw() {
 		Token token = analisadorLexico.nextToken();
 		if(token.getToken().equals("LOGIC_OP")){
-			expl();//falta implementar
+			expl();
 		}else{
-			genflw1();//falta implementar
+			analisadorLexico.armazenaToken(token); // retorna token para ser processado novamente
+			genflw1();
 		}
 	}
 
 	public void genflw1() {
-	};
+		termon1();
+		expn1();
+		genflw2();
+	}
 
 	public void genflw2() {
-	};
+		Token token = analisadorLexico.nextToken();
+		if(token.getToken().equals("REL_OP")){
+			expn();
+			genflw3();
+		}else
+			analisadorLexico.armazenaToken(token); // quando pode ser vazio
+	}
 
 	public void genflw3() {
-	};
+		Token token = analisadorLexico.nextToken();
+		if(token.getToken().equals("LOGIC_OP")){
+			expr();
+		}
+		else
+			analisadorLexico.armazenaToken(token); // quando pode ser vazio
+	}
 
 	public void expr() {
-	};
+		expn();
+		Token token = analisadorLexico.nextToken();
+		if(token.getToken().equals("REL_OP")){
+			expn();
+		}else
+			eH.setError("ERRO: era esperado um operador relacional (and, or, not) "
+					,token.getLinha(),token.getColuna());
+	}
 
 	public void expn() {
-	};
+		termon();
+		expn1(); 
+	}
 
 	public void expn1() {
-	};
+		Token token = analisadorLexico.nextToken();
+		if(token.getToken().equals("ADDSUB_OP")){
+			termon();
+			expn1();
+		}else
+			analisadorLexico.armazenaToken(token); // quando pode ser vazio
+	}
 
 	public void termon() {
-	};
-
+		valn();
+		termon1(); 
+	}
+	
 	public void termon1() {
-	};
+		Token token = analisadorLexico.nextToken();
+		if(token.getToken().equals("MULTDIV_OP")){
+			valn();
+			termon1();
+		}
+		else
+			analisadorLexico.armazenaToken(token); // quando pode ser vazio
+	}
 
 	public void valn() {
-	};
+		Token token = analisadorLexico.nextToken();
+		switch(token.getToken()){
+		case "NUM_INT":
+		case "NUM_FLOAT":
+		case "ID":
+			break;
+		case "L_PAR":
+			expn();
+			token = analisadorLexico.nextToken();
+			if(!token.getToken().equals("R_PAR"))
+				eH.setError("ERRO: Era esperado um \")\" "
+						,token.getLinha(),token.getColuna());
+			break;
+		default:
+			eH.setError("ERRO: Era esperada algum número, ID ou expressao "
+					,token.getLinha(),token.getColuna());
+			break;
+		}
+	}
 
 	public void rep() {
-	};
+		Token token = analisadorLexico.nextToken();
+		switch(token.getToken()){
+		case "FOR":
+			repf();
+			break;
+		case "WHILE":
+			repw();
+			break;
+		default:
+			eH.setError("ERRO: Era esperado um FOR ou WHILE "
+					,token.getLinha(),token.getColuna());
+			break;
+		}
+	}
 
 	public void repf() {
-	};
+		Token token = analisadorLexico.nextToken();
+		if(token.getToken().equals("ID")){
+			token = analisadorLexico.nextToken();
+			if(token.getToken().equals("ATTRIB_OP")){
+				expn();
+				token = analisadorLexico.nextToken();
+				if(token.getToken().equals("TO")){
+					expn();
+					bloco();
+				}else
+					eH.setError("ERRO: Era esperado um TO "
+							,token.getLinha(),token.getColuna());
+				
+			}else
+				eH.setError("ERRO: Era esperado uma atribuicao "
+						,token.getLinha(),token.getColuna());
+		}else
+			eH.setError("ERRO: Era esperado um ID "
+					,token.getLinha(),token.getColuna());
+	}
 
 	public void repw() {
-	};
+		Token token = analisadorLexico.nextToken();
+		if(token.getToken().equals("L_PAR")){
+			expl();
+			token = analisadorLexico.nextToken();
+			if(token.getToken().equals("R_PAR")){
+				bloco();
+			}else
+				eH.setError("ERRO: Era esperado um \")\" "
+						,token.getLinha(),token.getColuna());
+		}else
+			eH.setError("ERRO: Era esperado um \"(\" "
+					,token.getLinha(),token.getColuna());
+	}
 }
