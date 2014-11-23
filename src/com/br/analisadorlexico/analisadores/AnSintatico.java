@@ -16,8 +16,8 @@ public class AnSintatico {
 		if (analisadorLexico.retornarErros().size() == 0) {
 			System.out.println("Nenhum erro lexico foi encontrado.");
 		} else {
-			System.out.println("RELATÃ“RIO DE ERROS:");
-			System.out.println("POSIÃ‡ÃƒO (lin, col) | MENSAGEM ");
+			System.out.println("RELATORIO DE ERROS:");
+			System.out.println("POSICAO (lin, col) | MENSAGEM ");
 			for (String erro : analisadorLexico.retornarErros())
 				System.out.println(erro);
 		}
@@ -62,29 +62,36 @@ public class AnSintatico {
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia");
+						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia"
+								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 					}
 				}else{
-					eH.setError("Token ';' era esperado. Verifique a ortografia");
+					eH.setError("Token ';' era esperado. Verifique a ortografia"
+							,token.getLinha(),token.getColuna());
 					analisadorLexico.armazenaToken(token);
 					bloco();
 					token = analisadorLexico.nextToken();
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia");
+						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia"
+								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 					}
 				}
 			}else{
@@ -97,29 +104,36 @@ public class AnSintatico {
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia");
+						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia"
+								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 					}
 				}else{
-					eH.setError("Token ';' era esperado. Verifique a ortografia");
+					eH.setError("Token ';' era esperado. Verifique a ortografia"
+							,token.getLinha(),token.getColuna());
 					analisadorLexico.armazenaToken(token);
 					bloco();
 					token = analisadorLexico.nextToken();
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia");
+						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia"
+								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 					}
 				}
 			}
@@ -136,29 +150,36 @@ public class AnSintatico {
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia");
+						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia"
+								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 					}
 				}else{
-					eH.setError("Token ';' era esperado. Verifique a ortografia");
+					eH.setError("Token ';' era esperado. Verifique a ortografia"
+							,token.getLinha(),token.getColuna());
 					analisadorLexico.armazenaToken(token);
 					bloco();
 					token = analisadorLexico.nextToken();
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia");
+						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia"
+								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 					}
 				}
 			}else{
@@ -171,29 +192,36 @@ public class AnSintatico {
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia");
+						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia"
+								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 					}
 				}else{
-					eH.setError("Token ';' era esperado. Verifique a ortografia");
+					eH.setError("Token ';' era esperado. Verifique a ortografia"
+							,token.getLinha(),token.getColuna());
 					analisadorLexico.armazenaToken(token);
 					bloco();
 					token = analisadorLexico.nextToken();
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia");
+						eH.setError("Token 'end_prog' era esperado. Verifique a ortografia"
+								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("Token ';' era esperado. Verifique a ortografia");
+							eH.setError("Token ';' era esperado. Verifique a ortografia"
+									,token.getLinha(),token.getColuna());
 					}
 				}
 			}
@@ -227,7 +255,8 @@ public class AnSintatico {
 			cmds();
 			token = analisadorLexico.nextToken();
 			if (!"END".equals(token.getToken())) 
-				eH.setError("Token end era esperado. Verifique a ortografia");
+				eH.setError("Token end era esperado. Verifique a ortografia"
+						,token.getLinha(),token.getColuna());
 		
 		}
 	
@@ -282,16 +311,19 @@ public class AnSintatico {
 					bloco();
 					cmds();
 				}else{
-					eH.setError("Token 'then' era esperado. Verifique a ortografia");
+					eH.setError("Token 'then' era esperado. Verifique a ortografia"
+							,token.getLinha(),token.getColuna());
 					erro = true;
 					}
 			}else{
-				eH.setError("Token 'r_par' era esperado. Verifique a ortografia");
+				eH.setError("Token 'r_par' era esperado. Verifique a ortografia"
+						,token.getLinha(),token.getColuna());
 				erro = true;
 			}
 		}
 		else{
-			eH.setError("Token 'r_par' era esperado. Verifique a ortografia");
+			eH.setError("Token 'r_par' era esperado. Verifique a ortografia"
+					,token.getLinha(),token.getColuna());
 			erro = true;
 		}
 		
@@ -666,9 +698,11 @@ public class AnSintatico {
 		Token token = analisadorLexico.nextToken();
 		switch(token.getToken()){
 		case "FOR":
+			analisadorLexico.armazenaToken(token);
 			repf();
 			break;
 		case "WHILE":
+			analisadorLexico.armazenaToken(token);
 			repw();
 			break;
 		default:
@@ -680,38 +714,44 @@ public class AnSintatico {
 
 	public void repf() {
 		Token token = analisadorLexico.nextToken();
-		if(token.getToken().equals("ID")){
+		if(token.getToken().equals("FOR")){
 			token = analisadorLexico.nextToken();
-			if(token.getToken().equals("ATTRIB_OP")){
-				expn();
+			if(token.getToken().equals("ID")){
 				token = analisadorLexico.nextToken();
-				if(token.getToken().equals("TO")){
+				if(token.getToken().equals("ATTRIB_OP")){
 					expn();
-					bloco();
+					token = analisadorLexico.nextToken();
+					if(token.getToken().equals("TO")){
+						expn();
+						bloco();
+					}else
+						eH.setError("ERRO: Era esperado um TO "
+								,token.getLinha(),token.getColuna());
+					
 				}else
-					eH.setError("ERRO: Era esperado um TO "
+					eH.setError("ERRO: Era esperado uma atribuicao "
 							,token.getLinha(),token.getColuna());
-				
 			}else
-				eH.setError("ERRO: Era esperado uma atribuicao "
+				eH.setError("ERRO: Era esperado um ID "
 						,token.getLinha(),token.getColuna());
-		}else
-			eH.setError("ERRO: Era esperado um ID "
-					,token.getLinha(),token.getColuna());
+		}
 	}
 
 	public void repw() {
 		Token token = analisadorLexico.nextToken();
 		if(token.getToken().equals("L_PAR")){
-			expl();
 			token = analisadorLexico.nextToken();
-			if(token.getToken().equals("R_PAR")){
-				bloco();
+			if(token.getToken().equals("L_PAR")){
+				expl();
+				token = analisadorLexico.nextToken();
+				if(token.getToken().equals("R_PAR")){
+					bloco();
+				}else
+					eH.setError("ERRO: Era esperado um \")\" "
+							,token.getLinha(),token.getColuna());
 			}else
-				eH.setError("ERRO: Era esperado um \")\" "
+				eH.setError("ERRO: Era esperado um \"(\" "
 						,token.getLinha(),token.getColuna());
-		}else
-			eH.setError("ERRO: Era esperado um \"(\" "
-					,token.getLinha(),token.getColuna());
+	}
 	}
 }
