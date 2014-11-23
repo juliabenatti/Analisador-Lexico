@@ -25,7 +25,7 @@ public class TabSimbolos {
 		tabelaSimbolos.put("begin", new Token(17,"BEGIN", "begin"));
 		tabelaSimbolos.put("end", new Token(18,"END", "end"));
 		tabelaSimbolos.put("if", new Token(19,"IF", "if"));
-		tabelaSimbolos.put("then", new Token(20,"THEM", "then"));
+		tabelaSimbolos.put("then", new Token(20,"THEN", "then"));
 		tabelaSimbolos.put("else", new Token(21,"ELSE", "else"));
 		tabelaSimbolos.put("for", new Token(22,"FOR", "for"));
 		tabelaSimbolos.put("while", new Token(23,"WHILE", "while"));
@@ -128,11 +128,14 @@ public class TabSimbolos {
 	public Token retornaSalvaPalavra(String lex, long l, long c){
 		Token token;
 		if (tabelaSimbolos.containsKey(lex.toLowerCase())){
+			
 			token = tabelaSimbolos.get(lex);
+			token.setLinha(l);
+			token.setColuna(c);
 			String tipo = token.getToken();
 			tabelaSimbolos.remove(lex);
 			token = new Token(2, tipo, lex, l, c);
-			tabelaSimbolos.put(tipo.toLowerCase(), token);
+			tabelaSimbolos.put(lex, token);
 			
 			return token;
 		}
@@ -143,16 +146,16 @@ public class TabSimbolos {
 		}
 	}
 		
-		public Token retornaNumero(String lex, long l, long c){
-			if(lex.contains("."))
-				return (new Token(2, "NUM_FLOAT", lex, l, c));
-				
+	public Token retornaNumero(String lex, long l, long c){
+		if(lex.contains("."))
+			return (new Token(2, "NUM_FLOAT", lex, l, c));
 			
-			else if (!lex.contains("."))
-				return (new Token(1, "NUM_INT", lex, l, c));
-			
-			else
-				return null;
-		}
+		
+		else if (!lex.contains("."))
+			return (new Token(1, "NUM_INT", lex, l, c));
+		
+		else
+			return null;
+	}
 		
 }
