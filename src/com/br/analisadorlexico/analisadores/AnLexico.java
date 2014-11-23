@@ -357,7 +357,7 @@ public class AnLexico {
 
 	public AnLexico(String caminhoArquivo) {
 		try {
-			this.caminhoArquivo = caminhoArquivo;
+			AnLexico.caminhoArquivo = caminhoArquivo;
 			leitorArquivo = new FileHandler(caminhoArquivo);
 		} catch (FileNotFoundException e) {
 			System.out.println("Arquivo nÃƒÂ£o encontrado.");
