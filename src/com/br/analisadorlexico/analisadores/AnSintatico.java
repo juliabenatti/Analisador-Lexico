@@ -52,7 +52,7 @@ public class AnSintatico {
 			//Se prÃ³ximo token for ID
 			if ("ID".equals(token.getToken())){
 				//verifica se ID existe
-				analisadorLexico.addIdDeclarado(token);
+//				analisadorLexico.addIdDeclarado(token);
 				token = analisadorLexico.nextToken();
 				//Se prÃ³ximo token for TERM
 				if ("TERM".equals(token.getToken())) {
@@ -95,7 +95,8 @@ public class AnSintatico {
 					}
 				}
 			}else{
-				//Caso nÃ£o seja ID, vai para o prÃ³ximo
+				eH.setError("Token 'id' era esperado. Verifique a ortografia"
+						,token.getLinha(),token.getColuna());
 				token = analisadorLexico.nextToken();
 				if ("TERM".equals(token.getToken())) {
 					analisadorLexico.armazenaToken(token);
@@ -264,7 +265,9 @@ public class AnSintatico {
 			cmd();
 		
 		else{
-			eH.setError("Token "+ token.getLexema()+" nÃ£o era esperado. Verifique a ortografia");
+			eH.setError("Token "+ token.getLexema()+" não era esperado. Verifique a ortografia"
+					,token.getLinha(),token.getColuna());
+			
 			while(!("ID".equals(token.getToken()) || "END_PROG".equals(token.getToken()) || "END".equals(token.getToken())|| "DECLARE".equals(token.getToken())|| "IF".equals(token.getToken()) || "ELSE".equals(token.getToken())|| "FOR".equals(token.getToken()) || "WHILE".equals(token.getToken()))){
 				token = analisadorLexico.nextToken();
 			}
@@ -344,11 +347,15 @@ public class AnSintatico {
 			if ("TERM".equals(token.getToken())) 
 				cmds();
 			else{
-				eH.setError("Token 'term' era esperado. Verifique a ortografia");
+				eH.setError("Token 'term' era esperado. Verifique a ortografia"
+						,token.getLinha(),token.getColuna());
+				
 				erro = true;
 			}
 		}else{
-			eH.setError("Token 'attrb_op' era esperado. Verifique a ortografia");
+			eH.setError("Token 'attrb_op' era esperado. Verifique a ortografia"
+					,token.getLinha(),token.getColuna());
+			
 			erro = true;
 		}
 		
@@ -373,16 +380,20 @@ public class AnSintatico {
 					cmds();
 				}
 				else{
-					eH.setError("Token 'term' era esperado. Verifique a ortografia");
+					eH.setError("Token 'term' era esperado. Verifique a ortografia"
+							,token.getLinha(),token.getColuna());
 					erro = true;
 				}
 			}else{
-				eH.setError("Token 'type' era esperado. Verifique a ortografia");
-				erro = true;
+				eH.setError("Token 'type' era esperado. Verifique a ortografia"
+						,token.getLinha(),token.getColuna());
+					erro = true;
 			}
 		}
 		else{
-			eH.setError("Token 'id' era esperado. Verifique a ortografia");
+			eH.setError("Token 'id' era esperado. Verifique a ortografia"
+					,token.getLinha(),token.getColuna());
+			
 			erro = true;
 		}
 		
@@ -416,7 +427,9 @@ public class AnSintatico {
 				atrib();
 				break;
 			default:
-				eH.setError("Token "+token.getToken()+" nÃ£o era esperado. Verifique a ortografia");
+				eH.setError("Token "+token.getToken()+" não era esperado. Verifique a ortografia"
+						,token.getLinha(),token.getColuna());
+				
 				while (!("WHILE".equals(token.getToken())|| "ID".equals(token.getToken())|| "FOR".equals(token.getToken()) || "ELSE".equals(token.getToken()) || "END".equals(token.getToken()) || "END_PROG".equals(token.getToken())))
 					token = analisadorLexico.nextToken();
 				
@@ -439,21 +452,29 @@ public class AnSintatico {
 						analisadorLexico.addIdDeclarado(id);
 						
 					else{
-						eH.setError("Token 'term' era esperado. Verifique a ortografia");
+						eH.setError("Token 'term' era esperado. Verifique a ortografia"
+								,token.getLinha(),token.getColuna());
+					
 						erro = true;
 					}
 				}else{
-					eH.setError("Token 'type' era esperado. Verifique a ortografia");
+					eH.setError("Token 'type' era esperado. Verifique a ortografia"
+							,token.getLinha(),token.getColuna());
+					
 					erro = true;
 				}
 
 			}else{
-				eH.setError("Token 'id' era esperado. Verifique a ortografia");
+				eH.setError("Token 'id' era esperado. Verifique a ortografia"
+						,token.getLinha(),token.getColuna());
+				
 				erro = true;
 			}
 
 		}else{
-			eH.setError("Token 'declare' era esperado. Verifique a ortografia");
+			eH.setError("Token 'declare' era esperado. Verifique a ortografia"
+					,token.getLinha(),token.getColuna());
+			
 			erro = true;
 		}
 		
@@ -479,20 +500,26 @@ public class AnSintatico {
 						bloco();
 						cndb();
 				}else{
-					eH.setError("Token 'then' era esperado. Verifique a ortografia");
+					eH.setError("Token 'type' era esperado. Verifique a ortografia"
+							,token.getLinha(),token.getColuna());
 					erro = true;
 				}
 			}else{
-				eH.setError("Token 'r_par' era esperado. Verifique a ortografia");
+				eH.setError("Token 'r_par' era esperado. Verifique a ortografia"
+						,token.getLinha(),token.getColuna());
+
 				erro = true;
 			}
 		}else{
-			eH.setError("Token 'l_par' era esperado. Verifique a ortografia");
+			eH.setError("Token 'l_par' era esperado. Verifique a ortografia"
+					,token.getLinha(),token.getColuna());
+			
 			erro = true;
 		}
 	}else{
-		eH.setError("Token 'if' era esperado. Verifique a ortografia");
-		erro = true;
+		eH.setError("Token 'if'  era esperado. Verifique a ortografia"
+				,token.getLinha(),token.getColuna());
+			erro = true;
 	}
 		
 		if(erro){
@@ -512,9 +539,11 @@ public class AnSintatico {
 			analisadorLexico.armazenaToken(token);
 		}
 		else
-			eH.setError("Token "+token.getToken()+" nÃ£o era esperado. Verifique a ortografia");
+			eH.setError("Token "+token.getToken()+" não era esperado. Verifique a ortografia"
+					,token.getLinha(),token.getColuna());
+			
 	};
-// -- FIM MEUS MÃ‰TODOS!
+// -- FIM MEUS MéTODOS!
 	public void atrib() {
 		Token token = analisadorLexico.nextToken();
 		if(token.getToken().equals("ID")){
@@ -526,7 +555,7 @@ public class AnSintatico {
 					eH.setError("Faltou um ; no final da linha."
 							,token.getLinha(),token.getColuna());
 			}else
-				eH.setError("Faltou um sÃƒÂ­mbolo de atribuiÃƒÂ§ÃƒÂ£o da variÃƒÂ¡vel."
+				eH.setError("Faltou um símmbolo de atribuição da variável."
 						,token.getLinha(),token.getColuna());
 		}else
 			eH.setError("Faltou um ; no final da linha."
@@ -558,7 +587,7 @@ public class AnSintatico {
 			case "LITERAL":
 				break;
 			default:
-				eH.setError("ERRO: Era esperada alguma expressÃƒÂ£o "
+				eH.setError("ERRO: Era esperada alguma expressão "
 						,token.getLinha(),token.getColuna());
 		}
 	}
@@ -587,7 +616,7 @@ public class AnSintatico {
 							,token.getLinha(),token.getColuna());
 				break;
 			default:
-				eH.setError("ERRO: Era esperada alguma expressÃƒÂ£o "
+				eH.setError("ERRO: Era esperada alguma expressão "
 						,token.getLinha(),token.getColuna());
 		}
 	}
@@ -688,7 +717,7 @@ public class AnSintatico {
 						,token.getLinha(),token.getColuna());
 			break;
 		default:
-			eH.setError("ERRO: Era esperada algum nÃºmero, ID ou expressao "
+			eH.setError("ERRO: Era esperada algum número, ID ou expressao "
 					,token.getLinha(),token.getColuna());
 			break;
 		}

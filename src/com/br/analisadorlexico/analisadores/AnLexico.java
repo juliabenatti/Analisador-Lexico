@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.br.analisadorlexico.componentes.TabSimbolos;
 import com.br.analisadorlexico.componentes.Token;
-import com.br.analisadorlexico.leitorarquivo.FileHandler;
+import com.br.analisadorlexico.utils.FileHandler;
 
 public class AnLexico {
 
