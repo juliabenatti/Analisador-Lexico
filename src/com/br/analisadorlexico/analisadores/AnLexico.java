@@ -29,6 +29,7 @@ public class AnLexico {
 				caractersPendentes.remove(caractersPendentes.size()-1);
 				return token;
 			}
+			
 			if (primeiroCaracter) {
 				primeiroCaracter = false;
 				// Chama, da classe do professor, a leitura do arquivo, passando
@@ -113,8 +114,8 @@ public class AnLexico {
 
 					} else
 						errorHandler
-								.setError(leitorArquivo.getLine()
-										+ ", "
+								.setError("Linha: "+leitorArquivo.getLine()
+										+ ", Coluna "
 										+ leitorArquivo.getColumn()
 										+ " | O caracter < deveria ser seguido por \"-\". ");
 					caracter = leitorArquivo.getNextChar();
@@ -148,7 +149,8 @@ public class AnLexico {
 								leitorArquivo.getColumn());
 
 					else {
-						errorHandler.setError(leitorArquivo.getLine() + ", "
+						errorHandler.setError("Linha: "+leitorArquivo.getLine()
+								+ ", Coluna "
 								+ leitorArquivo.getColumn() + " | Operador "
 								+ lexema + " não é válido.");
 					}
@@ -216,15 +218,6 @@ public class AnLexico {
 										lexema.append("E" + caracter);
 										caracter = leitorArquivo.getNextChar();
 									}
-//									 else {
-//										// devolve dos simbolos
-//										leitorArquivo.reset();
-//										leitorArquivo.reset();
-//										return (tabSimbolos.retornaNumero(
-//												String.valueOf(lexema),
-//												leitorArquivo.getLine(),
-//												leitorArquivo.getColumn()));
-//									}
 								}
 
 								else if (caracter == '.' && indicePonto == 0) {
@@ -283,9 +276,9 @@ public class AnLexico {
 
 					// Erros gerais nÃƒÂ£o pegos anteriormente.
 					else {
-						errorHandler.setError(leitorArquivo.getLine() + ", "
+						errorHandler.setError("Linha: "+leitorArquivo.getLine() + ", Coluna: "
 								+ leitorArquivo.getColumn() + " | Caracter "
-								+ caracter + " nÃƒÂ£o ÃƒÂ© vÃƒÂ¡lido. ");
+								+ caracter + " não élido. ");
 						caracter = leitorArquivo.getNextChar();
 						continue;
 					}
@@ -301,7 +294,7 @@ public class AnLexico {
 			return new Token(1, "EOF", "EOF", leitorArquivo.getLine(),
 					leitorArquivo.getColumn());
 		} catch (Exception e) {
-			System.out.println("NÃƒÂ£o foi possÃƒÂ­vel recuperar caracter.");
+			System.out.println("Não foi possível recuperar caracter.");
 		}
 		return null; // caso nada seja encontrado.
 	}
@@ -329,6 +322,9 @@ public class AnLexico {
 	}
 	
 	public void addIdDeclarado(Token token) {
+		if(idsDeclarados.contains(token.getLexema()))
+			errorHandler.setError("Variável já declarada anteriormente: "
+					+ token.getLexema());
 				idsDeclarados.add(token.getLexema());
 			}
 	
