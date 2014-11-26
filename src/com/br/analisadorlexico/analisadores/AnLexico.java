@@ -325,8 +325,8 @@ public class AnLexico {
 		if(idsDeclarados.contains(token.getLexema()))
 			errorHandler.setError("Variável já declarada anteriormente: "
 					+ token.getLexema());
+		else
 				idsDeclarados.add(token.getLexema());
-			}
 	
 	public void armazenaToken(Token token){
 		caractersPendentes.add(token);
