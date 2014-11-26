@@ -237,7 +237,7 @@ public class AnSintatico {
 			cmds();
 			token = analisadorLexico.nextToken();
 			if (!"END".equals(token.getToken())) 
-				eH.setError("Símbolo esperado: 'end'.  Símbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+				eH.setError("Símbolo esperado: 'end'.  Símbolo recebido: "+token.getLexema()+". Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
 		
 		}
@@ -325,7 +325,7 @@ public class AnSintatico {
 		if ("ATTRIB_OP".equals(token.getToken())) {
 			exp();
 			token = analisadorLexico.nextToken();
-			if ("TERM".equals(token.getToken())) 
+			if ("TERM".equals(token.getToken()))
 				cmds();
 			else{
 				eH.setError("Símbolo esperado: 'term'.  Símbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
@@ -595,6 +595,7 @@ public class AnSintatico {
 					eH.setError("Símbolo esperado: ')'.  Símbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
 				break;
+
 			default:
 				eH.setError("Símbolo "+token.getToken()+" não era esperado. Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
@@ -648,9 +649,13 @@ public class AnSintatico {
 		Token token = analisadorLexico.nextToken();
 		if(token.getToken().equals("REL_OP")){
 			expn();
-		}else
+		}else{
 			eH.setError("Símbolo esperado: 'and, or ou not'.  Símbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 					,token.getLinha(),token.getColuna());
+			while(!(token.getToken().equals("TERM")|| token.getToken().equals("R_PAR")))
+				token = analisadorLexico.nextToken();
+			analisadorLexico.armazenaToken(token); 
+		}
 	}
 
 	public void expn() {
@@ -719,12 +724,16 @@ public class AnSintatico {
 		default:
 			eH.setError("Símbolo esperado: 'for ou while'.  Símbolo recebido: "+token.getLexema()+". Verifique a ortografia"
 					,token.getLinha(),token.getColuna());
-			break;
+			while(!(token.getToken().equals("ID") || token.getToken().equals("END_PROG")|| token.getToken().equals("END")|| token.getToken().equals("DECLARE")|| token.getToken().equals("IF")|| token.getToken().equals("ELSE")|| token.getToken().equals("FOR")|| token.getToken().equals("WHILE")))
+				token = analisadorLexico.nextToken();
+			analisadorLexico.armazenaToken(token);
+				break;
 		}
 	}
 
 	public void repf() {
 		Token token = analisadorLexico.nextToken();
+		boolean erro = false;
 		if(token.getToken().equals("FOR")){
 			token = analisadorLexico.nextToken();
 			if(token.getToken().equals("ID")){
@@ -735,21 +744,33 @@ public class AnSintatico {
 					if(token.getToken().equals("TO")){
 						expn();
 						bloco();
-					}else
+					}else{
 						eH.setError("Símbolo esperado: 'to'.  Símbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 								,token.getLinha(),token.getColuna());
+						erro = true;
+					}
 					
-				}else
+				}else{
 					eH.setError("Símbolo esperado: '<-'.  Símbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
-			}else
+					erro = true;
+				}
+			}else{
 				eH.setError("Símbolo esperado: '<-'.  Símbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
+				erro = true;
+			}
+		}
+		if (erro){
+			while(!(token.getToken().equals("ID") || token.getToken().equals("END_PROG")|| token.getToken().equals("END")|| token.getToken().equals("DECLARE")|| token.getToken().equals("IF")|| token.getToken().equals("ELSE")|| token.getToken().equals("FOR")|| token.getToken().equals("WHILE")))
+				token = analisadorLexico.nextToken();
+			analisadorLexico.armazenaToken(token);
 		}
 	}
 
 	public void repw() {
 		Token token = analisadorLexico.nextToken();
+		boolean erro = false;
 		if(token.getToken().equals("WHILE")){
 			token = analisadorLexico.nextToken();
 			if(token.getToken().equals("L_PAR")){
@@ -757,12 +778,21 @@ public class AnSintatico {
 				token = analisadorLexico.nextToken();
 				if(token.getToken().equals("R_PAR")){
 					bloco();
-				}else
+				}else{
 					eH.setError("Símbolo esperado: ')'.  Símbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
-			}else
+					erro = true;
+				}
+			}else{
 				eH.setError("Símbolo esperado: '('.  Símbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
+				erro = true;	
+			}
 	}
+		if (erro){
+			while(!(token.getToken().equals("ID") || token.getToken().equals("END_PROG")|| token.getToken().equals("END")|| token.getToken().equals("DECLARE")|| token.getToken().equals("IF")|| token.getToken().equals("ELSE")|| token.getToken().equals("FOR")|| token.getToken().equals("WHILE")))
+				token = analisadorLexico.nextToken();
+			analisadorLexico.armazenaToken(token);
+		}
 	}
 }
