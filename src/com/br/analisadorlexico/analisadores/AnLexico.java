@@ -327,7 +327,7 @@ public class AnLexico {
 					+ token.getLexema());
 		else
 				idsDeclarados.add(token.getLexema());
-	
+	}
 	public void armazenaToken(Token token){
 		caractersPendentes.add(token);
 	}
