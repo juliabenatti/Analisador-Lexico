@@ -16,8 +16,8 @@ public class AnSintatico {
 		if (analisadorLexico.retornarErros().size() == 0) {
 			System.out.println("Nenhum erro lexico foi encontrado.");
 		} else {
-			System.out.println("RELATÃ“RIO DE ERROS:");
-			System.out.println("POSIÃ‡ÃƒO (lin, col) | MENSAGEM ");
+			System.out.println("RELATÃƒâ€œRIO DE ERROS:");
+			System.out.println("POSIÃƒâ€¡ÃƒÆ’O (lin, col) | MENSAGEM ");
 			for (String erro : analisadorLexico.retornarErros())
 				System.out.println(erro);
 			
@@ -25,9 +25,9 @@ public class AnSintatico {
 		}
 
 		System.out.println("");
-		System.out.println("ESTADO DA TABELA DE SÃ�MBOLOS:");
+		System.out.println("ESTADO DA TABELA DE SÃƒï¿½MBOLOS:");
 		System.out
-				.println("ORDEM | TOKEN | LEXEMA | POSIÃ‡ÃƒO FINAL (lin, col) ");
+				.println("ORDEM | TOKEN | LEXEMA | POSIÃƒâ€¡ÃƒÆ’O FINAL (lin, col) ");
 
 		int contador = 1;
 		for (Token t : tS.getListaToken().values()) {
@@ -58,19 +58,19 @@ public class AnSintatico {
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("SÃ­mbolo esperado: 'end prog'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+						eH.setError("SÃƒÂ­mbolo esperado: 'end prog'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 					}
 				}else{
-					eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+					eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
 					analisadorLexico.armazenaToken(token);
 					bloco();
@@ -78,15 +78,15 @@ public class AnSintatico {
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("SÃ­mbolo esperado: 'end prog'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+						eH.setError("SÃƒÂ­mbolo esperado: 'end prog'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 					}
 				}
@@ -101,19 +101,19 @@ public class AnSintatico {
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("SÃ­mbolo esperado: 'end prog'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+						eH.setError("SÃƒÂ­mbolo esperado: 'end prog'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 					}
 				}else{
-					eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+					eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
 					analisadorLexico.armazenaToken(token);
 					bloco();
@@ -121,20 +121,20 @@ public class AnSintatico {
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("SÃ­mbolo esperado: 'end prog'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+						eH.setError("SÃƒÂ­mbolo esperado: 'end prog'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 					}
 				}
 			}
-//Caso nÃ£o comeÃ§e com 'program'
+//Caso nÃƒÂ£o comeÃƒÂ§e com 'program'
 		} else {
 			token = analisadorLexico.nextToken();
 			if ("ID".equals(token.getToken())) {
@@ -147,19 +147,19 @@ public class AnSintatico {
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("SÃ­mbolo esperado: 'end prong'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+						eH.setError("SÃƒÂ­mbolo esperado: 'end prong'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 					}
 				}else{
-					eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+					eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
 					analisadorLexico.armazenaToken(token);
 					bloco();
@@ -167,15 +167,15 @@ public class AnSintatico {
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("SÃ­mbolo esperado: 'end prog'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+						eH.setError("SÃƒÂ­mbolo esperado: 'end prog'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 					}
 				}
@@ -189,19 +189,19 @@ public class AnSintatico {
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("SÃ­mbolo esperado: 'end prog'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+						eH.setError("SÃƒÂ­mbolo esperado: 'end prog'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 					}
 				}else{
-					eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+					eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
 					analisadorLexico.armazenaToken(token);
 					bloco();
@@ -209,15 +209,15 @@ public class AnSintatico {
 					if ("END_PROG".equals(token.getToken())) {
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 
 					}else{
-						eH.setError("SÃ­mbolo esperado: 'end prog'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+						eH.setError("SÃƒÂ­mbolo esperado: 'end prog'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 								,token.getLinha(),token.getColuna());
 						token = analisadorLexico.nextToken();
 						if (!"TERM".equals(token.getToken())) 
-							eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+							eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 									,token.getLinha(),token.getColuna());
 					}
 				}
@@ -231,7 +231,7 @@ public class AnSintatico {
 			cmds();
 			token = analisadorLexico.nextToken();
 			if (!"END".equals(token.getToken())) 
-				eH.setError("SÃ­mbolo esperado: 'end'.  SÃ­mbolo recebido: "+token.getLexema()+". Verifique a ortografia"
+				eH.setError("SÃƒÂ­mbolo esperado: 'end'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+". Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
 		
 		}
@@ -240,7 +240,7 @@ public class AnSintatico {
 			cmd();
 		
 		else{
-			eH.setError("SÃ­mbolo "+ token.getLexema()+" nÃ£o era esperado. Verifique a ortografia"
+			eH.setError("SÃƒÂ­mbolo "+ token.getLexema()+" nÃƒÂ£o era esperado. Verifique a ortografia"
 					,token.getLinha(),token.getColuna());
 			
 			while(!("ID".equals(token.getToken()) || "END_PROG".equals(token.getToken()) || "END".equals(token.getToken())|| "DECLARE".equals(token.getToken())|| "IF".equals(token.getToken()) || "ELSE".equals(token.getToken())|| "FOR".equals(token.getToken()) || "WHILE".equals(token.getToken()))){
@@ -273,13 +273,13 @@ public class AnSintatico {
 			    analisadorLexico.verificaDeclaracaoId(token);
 				idflw();
 		 }
-		 else if ("BEGIN".equals(token.getToken())){
+		 else
 			analisadorLexico.armazenaToken(token);
-			bloco();
-			cmds();
-		}
-		else
-			analisadorLexico.armazenaToken(token);
+		
+		 if ("BEGIN".equals(token.getToken())){
+				bloco();
+				cmds();
+		 }
 
 	};
 
@@ -293,20 +293,20 @@ public class AnSintatico {
 				token = analisadorLexico.nextToken();
 				if ("THEN".equals(token.getToken())) {
 					bloco();
-					cmds();
+					cndb();
 				}else{
-					eH.setError("SÃ­mbolo esperado: 'then'.  SÃ­mbolo recebido: "+token.getLexema()+". Verifique a ortografia"
+					eH.setError("SÃƒÂ­mbolo esperado: 'then'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+". Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
 					erro = true;
 					}
 			}else{
-				eH.setError("SÃ­mbolo esperado: ')'.  SÃ­mbolo recebido: "+token.getLexema()+". Verifique a ortografia"
+				eH.setError("SÃƒÂ­mbolo esperado: ')'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+". Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
 				erro = true;
 			}
 		}
 		else{
-			eH.setError("SÃ­mbolo esperado: '('.  SÃ­mbolo recebido: "+token.getLexema()+". Verifique a ortografia"
+			eH.setError("SÃƒÂ­mbolo esperado: '('.  SÃƒÂ­mbolo recebido: "+token.getLexema()+". Verifique a ortografia"
 					,token.getLinha(),token.getColuna());
 			erro = true;
 		}
@@ -328,13 +328,13 @@ public class AnSintatico {
 			if ("TERM".equals(token.getToken()))
 				cmds();
 			else{
-				eH.setError("SÃ­mbolo esperado: 'term'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+				eH.setError("SÃƒÂ­mbolo esperado: 'term'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
 				
 				erro = true;
 			}
 		}else{
-			eH.setError("SÃ­mbolo esperado: '<-'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+			eH.setError("SÃƒÂ­mbolo esperado: '<-'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 					,token.getLinha(),token.getColuna());
 			
 			erro = true;
@@ -361,12 +361,12 @@ public class AnSintatico {
 					cmds();
 				}
 				else{
-					eH.setError("SÃ­mbolo esperado: 'term'.  SÃ­mbolo recebido: "+token.getLexema()+". Verifique a ortografia"
+					eH.setError("SÃƒÂ­mbolo esperado: 'term'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+". Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
 					erro = true;
 				}
 			}else{
-				eH.setError("SÃ­mbolo esperado: 'bool, int, float ou text'.  SÃ­mbolo recebido: "+token.getLexema()+". Verifique a ortografia"
+				eH.setError("SÃƒÂ­mbolo esperado: 'bool, int, float ou text'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+". Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
 					erro = true;
 			}
@@ -407,7 +407,7 @@ public class AnSintatico {
 				atrib();
 				break;
 			default:
-				eH.setError("SÃ­mbolo "+token.getToken()+" nÃ£o era esperado. Verifique a ortografia"
+				eH.setError("SÃƒÂ­mbolo "+token.getToken()+" nÃƒÂ£o era esperado. Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
 				
 				while (!("WHILE".equals(token.getToken())|| "ID".equals(token.getToken())|| "FOR".equals(token.getToken()) || "ELSE".equals(token.getToken()) || "END".equals(token.getToken()) || "END_PROG".equals(token.getToken())))
@@ -432,13 +432,13 @@ public class AnSintatico {
 						analisadorLexico.addIdDeclarado(id);
 						
 					else{
-						eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+						eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 								,token.getLinha(),token.getColuna());
 					
 						erro = true;
 					}
 				}else{
-					eH.setError("SÃ­mbolo esperado: 'bool, int, float ou text'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+					eH.setError("SÃƒÂ­mbolo esperado: 'bool, int, float ou text'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
 					
 					erro = true;
@@ -452,7 +452,7 @@ public class AnSintatico {
 			}
 
 		}else{
-			eH.setError("SÃ­mbolo esperado: 'declare'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+			eH.setError("SÃƒÂ­mbolo esperado: 'declare'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 					,token.getLinha(),token.getColuna());
 			
 			erro = true;
@@ -480,24 +480,24 @@ public class AnSintatico {
 						bloco();
 						cndb();
 				}else{
-					eH.setError("SÃ­mbolo esperado: 'bool, int, float ou text'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+					eH.setError("SÃƒÂ­mbolo esperado: 'bool, int, float ou text'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
 					erro = true;
 				}
 			}else{
-				eH.setError("SÃ­mbolo esperado: ')'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+				eH.setError("SÃƒÂ­mbolo esperado: ')'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
 
 				erro = true;
 			}
 		}else{
-			eH.setError("SÃ­mbolo esperado: '('.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+			eH.setError("SÃƒÂ­mbolo esperado: '('.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 					,token.getLinha(),token.getColuna());
 			
 			erro = true;
 		}
 	}else{
-		eH.setError("SÃ­mbolo esperado: 'if'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+		eH.setError("SÃƒÂ­mbolo esperado: 'if'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 				,token.getLinha(),token.getColuna());
 			erro = true;
 	}
@@ -519,7 +519,7 @@ public class AnSintatico {
 			analisadorLexico.armazenaToken(token);
 		}
 		else
-			eH.setError("SÃ­mbolo "+token.getToken()+" nÃ£o era esperado. Verifique a ortografia"
+			eH.setError("SÃƒÂ­mbolo "+token.getToken()+" nÃƒÂ£o era esperado. Verifique a ortografia"
 					,token.getLinha(),token.getColuna());
 			
 	};
@@ -532,13 +532,13 @@ public class AnSintatico {
 				exp();
 				token = analisadorLexico.nextToken();
 				if(!token.getToken().equals("TERM"))
-					eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+					eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
 			}else
-				eH.setError("SÃ­mbolo esperado: '<-'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+				eH.setError("SÃƒÂ­mbolo esperado: '<-'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
 		}else
-			eH.setError("SÃ­mbolo esperado: ';'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+			eH.setError("SÃƒÂ­mbolo esperado: ';'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 					,token.getLinha(),token.getColuna());
 	}
 
@@ -561,13 +561,13 @@ public class AnSintatico {
 				if(token.getToken().equals("R_PAR"))
 					genflw1();
 				else
-					eH.setError("SÃ­mbolo esperado: ')'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+					eH.setError("SÃƒÂ­mbolo esperado: ')'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
 				break;
 			case "LITERAL":
 				break;
 			default:
-				eH.setError("SÃ­mbolo "+token.getLexema()+" nÃ£o era esperado. Verifique a ortografia"
+				eH.setError("SÃƒÂ­mbolo "+token.getLexema()+" nÃƒÂ£o era esperado. Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
 		}
 	}
@@ -592,12 +592,12 @@ public class AnSintatico {
 				if(token.getToken().equals("R_PAR"))
 					genflw1();
 				else
-					eH.setError("SÃ­mbolo esperado: ')'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+					eH.setError("SÃƒÂ­mbolo esperado: ')'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
 				break;
 
 			default:
-				eH.setError("SÃ­mbolo "+token.getToken()+" nÃ£o era esperado. Verifique a ortografia"
+				eH.setError("SÃƒÂ­mbolo "+token.getToken()+" nÃƒÂ£o era esperado. Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
 		}
 	}
@@ -650,7 +650,7 @@ public class AnSintatico {
 		if(token.getToken().equals("REL_OP")){
 			expn();
 		}else{
-			eH.setError("SÃ­mbolo esperado: 'and, or ou not'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+			eH.setError("SÃƒÂ­mbolo esperado: 'and, or ou not'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 					,token.getLinha(),token.getColuna());
 			while(!(token.getToken().equals("TERM")|| token.getToken().equals("R_PAR")))
 				token = analisadorLexico.nextToken();
@@ -698,11 +698,11 @@ public class AnSintatico {
 			expn();
 			token = analisadorLexico.nextToken();
 			if(!token.getToken().equals("R_PAR"))
-				eH.setError("SÃ­mbolo esperado: ')'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+				eH.setError("SÃƒÂ­mbolo esperado: ')'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
 			break;
 		default:
-			eH.setError("SÃ­mbolo "+token.getLexema()+" nÃ£o era esperado. Verifique a ortografia"
+			eH.setError("SÃƒÂ­mbolo "+token.getLexema()+" nÃƒÂ£o era esperado. Verifique a ortografia"
 					,token.getLinha(),token.getColuna());
 			while(("WHILE".equals(token.getToken()) || "ID".equals(token.getToken())|| "FOR".equals(token.getToken()) || "IF".equals(token.getToken())|| "DECLARE".equals(token.getToken())|| "TERM".equals(token.getToken())|| "BEGIN".equals(token.getToken()) || "R_PAR".equals(token.getToken()) || "LOGIC_OP".equals(token.getToken()) || "REL_OP".equals(token.getToken()) || "TO".equals(token.getToken()) || "ADDSUB_OP".equals(token.getToken()) || "MULTDIV_OP".equals(token.getToken())))
 				token = analisadorLexico.nextToken();
@@ -722,7 +722,7 @@ public class AnSintatico {
 			repw();
 			break;
 		default:
-			eH.setError("SÃ­mbolo esperado: 'for ou while'.  SÃ­mbolo recebido: "+token.getLexema()+". Verifique a ortografia"
+			eH.setError("SÃƒÂ­mbolo esperado: 'for ou while'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+". Verifique a ortografia"
 					,token.getLinha(),token.getColuna());
 			while(!(token.getToken().equals("ID") || token.getToken().equals("END_PROG")|| token.getToken().equals("END")|| token.getToken().equals("DECLARE")|| token.getToken().equals("IF")|| token.getToken().equals("ELSE")|| token.getToken().equals("FOR")|| token.getToken().equals("WHILE")))
 				token = analisadorLexico.nextToken();
@@ -745,23 +745,23 @@ public class AnSintatico {
 						expn();
 						bloco();
 					}else{
-						eH.setError("SÃ­mbolo esperado: 'to'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+						eH.setError("SÃƒÂ­mbolo esperado: 'to'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 								,token.getLinha(),token.getColuna());
 						erro = true;
 					}
 					
 				}else{
-					eH.setError("SÃ­mbolo esperado: '<-'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+					eH.setError("SÃƒÂ­mbolo esperado: '<-'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
 					erro = true;
 				}
 			}else{
-				eH.setError("SÃ­mbolo esperado: '<-'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+				eH.setError("SÃƒÂ­mbolo esperado: '<-'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
 				erro = true;
 			}
 		}else{
-			eH.setError("Simbolo esperado: 'FOR'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+			eH.setError("Simbolo esperado: 'FOR'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 					,token.getLinha(),token.getColuna());
 			erro = true;
 		}
@@ -783,17 +783,17 @@ public class AnSintatico {
 				if(token.getToken().equals("R_PAR")){
 					bloco();
 				}else{
-					eH.setError("SÃ­mbolo esperado: ')'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+					eH.setError("SÃƒÂ­mbolo esperado: ')'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 							,token.getLinha(),token.getColuna());
 					erro = true;
 				}
 			}else{
-				eH.setError("SÃ­mbolo esperado: '('.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+				eH.setError("SÃƒÂ­mbolo esperado: '('.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 						,token.getLinha(),token.getColuna());
 				erro = true;	
 			}
 	}else{
-		eH.setError("SImbolo esperado: 'WHILE'.  SÃ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
+		eH.setError("SImbolo esperado: 'WHILE'.  SÃƒÂ­mbolo recebido: "+token.getLexema()+" .Verifique a ortografia"
 				,token.getLinha(),token.getColuna());
 		erro = true;	
 	}
